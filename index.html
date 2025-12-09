@@ -372,96 +372,37 @@
       margin-top: 4px;
     }
 
-    /* ===== PROFILE / PDF LAYOUT ===== */
-
+    /* ==== Candidate Profile – PDF layout ==== */
     #candidateProfileCard {
-      background: #ffffff !important;
-      max-width: 794px; /* gần A4 width ở 96dpi */
+      max-width: 820px;
       margin: 0 auto;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      padding: 20px 24px 24px;
+      box-sizing: border-box;
+      font-size: 13px;
+      line-height: 1.45;
+      background: #ffffff;
     }
 
-    .pdf-header {
+    .profile-row {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 10px 14px;
-      border-radius: 10px;
-      background: linear-gradient(90deg, #f97316, #ea580c);
-      color: #ffffff;
-      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 16px;
     }
 
-    .pdf-header-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .profile-col {
+      flex: 1 1 260px;
     }
 
-    .pdf-logo {
-      height: 30px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    .pdf-header-title {
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .pdf-header-sub {
-      font-size: 11px;
-      opacity: 0.9;
-    }
-
-    .pdf-header-right {
-      text-align: right;
-      font-size: 11px;
-    }
-
-    .pdf-stage-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .pdf-stage-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #facc15;
-    }
-
-    .pdf-empid {
-      font-weight: 600;
-    }
-
-    .pdf-divider {
-      border: none;
-      border-bottom: 1px solid #e5e7eb;
-      margin: 0 0 12px;
-    }
-
-    .candidate-section {
+    .profile-section {
       page-break-inside: avoid;
-      margin-bottom: 12px;
     }
 
-    @media print {
-      html, body {
-        height: auto !important;
-        overflow: visible !important;
-      }
-      .page {
-        margin: 0;
-        padding: 0;
+    @media (max-width: 768px) {
+      #candidateProfileCard {
+        padding: 16px;
       }
     }
   </style>
@@ -689,77 +630,45 @@
 
       <hr style="border: none; border-bottom: 1px dashed #e5e7eb; margin: 18px 0" />
 
-      <!-- SECTION 3 · ROLE-SPECIFIC QUESTIONS -->
+      <!-- SECTION 3 · ROLE-SPECIFIC QUESTIONS (MANAGERIAL ONLY) -->
       <section>
         <h2 class="section-title">
           <span class="section-badge">Section 3</span>
-          Role-Specific Questions
+          Role-Specific Questions (Managerial)
         </h2>
         <p class="section-desc">
-          Depending on whether your target roles are managerial or individual
-          contributor roles, different questions will appear.
+          All target roles in this application involve people leadership. Please answer the following questions based on how you would lead in the future role.
         </p>
 
-        <!-- LEADERSHIP BLOCK -->
-        <div id="leadershipBlock" class="hidden">
-          <div class="pill-note">
-            <span>👥</span>
-            <span>Shown because at least one of your preferences is a managerial role.</span>
+        <div class="field">
+          <label class="field-label" for="leadershipStyle">
+            Future Leadership Style <span class="required">*</span>
+          </label>
+          <div class="field-help">
+            Describe how you would lead and support your team to achieve shared goals (e.g., communication, building trust, setting expectations).
           </div>
-
-          <div class="field">
-            <label class="field-label" for="leadershipStyle">
-              Future Leadership Style <span class="required">*</span>
-            </label>
-            <textarea
-              id="leadershipStyle"
-              name="leadershipStyle"
-              placeholder="Share your view on how you would lead people in the future role."
-            ></textarea>
-          </div>
-
-          <div class="field">
-            <label class="field-label" for="leadershipExample">
-              Example of Influencing or Motivating Others
-              <span class="required">*</span>
-            </label>
-            <textarea
-              id="leadershipExample"
-              name="leadershipExample"
-              placeholder="Describe the situation, what you did, and the result."
-            ></textarea>
-          </div>
+          <textarea
+            id="leadershipStyle"
+            name="leadershipStyle"
+            required
+            placeholder="Share your view on how you would lead people in the future role."
+          ></textarea>
         </div>
 
-        <!-- TECHNICAL BLOCK -->
-        <div id="technicalBlock" class="hidden">
-          <div class="pill-note">
-            <span>🛠️</span>
-            <span>Shown because at least one of your preferences is an individual contributor role.</span>
+        <div class="field">
+          <label class="field-label" for="leadershipExample">
+            Example of Influencing or Motivating Others
+            <span class="required">*</span>
+          </label>
+          <div class="field-help">
+            Briefly describe a real situation where you influenced or motivated others, including what you did and the result.
           </div>
-
-          <div class="field">
-            <label class="field-label" for="technicalContribution">
-              Meaningful Technical Contribution <span class="required">*</span>
-            </label>
-            <textarea
-              id="technicalContribution"
-              name="technicalContribution"
-              placeholder="Summarise your most meaningful technical or specialist contribution in your current role."
-            ></textarea>
-          </div>
-
-          <div class="field">
-            <label class="field-label" for="technicalSBI">
-              Explain the Above Using SBI (Situation–Behavior–Impact)
-              <span class="required">*</span>
-            </label>
-            <textarea
-              id="technicalSBI"
-              name="technicalSBI"
-              placeholder="S – What was happening?&#10;B – What did you do?&#10;I – What changed as a result?"
-            ></textarea>
-          </div>
+          <textarea
+            id="leadershipExample"
+            name="leadershipExample"
+            required
+            placeholder="Describe the situation, what you did, and the result."
+          ></textarea>
         </div>
       </section>
 
@@ -945,13 +854,14 @@
       </div>
 
       <div id="successMessage" class="success-msg hidden">
-        ✅ Your application passed validation. A candidate profile has been generated below. If you need to adjust anything, please update the form and submit again before downloading.
+        ✅ Your application passed validation. A candidate profile has been generated below.
+        If you need to adjust anything, please update the form above and submit again before downloading.
       </div>
     </form>
 
     <!-- ========== CANDIDATE PROFILE PREVIEW ========== -->
     <div id="profileWrapper" class="card hidden">
-      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:6px;">
         <div style="font-weight:600;font-size:14px;color:#111827;">
           Candidate Profile – Preview
         </div>
@@ -960,161 +870,97 @@
         </div>
       </div>
 
-      <!-- Profile Card (PDF area) -->
-      <div id="candidateProfileCard" class="bg-white border border-blue-200 rounded-xl p-5 text-sm">
+      <!-- Card sẽ được xuất PDF -->
+      <div id="candidateProfileCard">
 
-        <!-- ORANGE PDF HEADER -->
-        <div class="pdf-header">
-          <div class="pdf-header-left">
-            <!-- Thay src bằng file logo Ashley của bạn -->
-            <img src="ashley_logo.png" alt="Ashley Logo" class="pdf-logo">
-            <div>
-              <div class="pdf-header-title">Talent Uplift / Successor Pool 2025</div>
-              <div class="pdf-header-sub" id="pdf-name">Candidate: —</div>
+        <!-- Ashley orange header -->
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#f97316;color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:16px;">
+          <div>
+            <!-- Bạn có thể thay bằng <img> logo thực tế -->
+            <div style="font-weight:700;font-size:14px;">
+              Ashley Logo
+              <span style="font-weight:600;margin-left:8px;">TALENT UPLIFT / SUCCESSOR POOL 2025</span>
+            </div>
+            <div style="font-size:12px;margin-top:2px;">
+              Candidate: <span id="hdr-name">—</span>
             </div>
           </div>
-          <div class="pdf-header-right">
-            <div class="pdf-stage-pill">
-              <span class="pdf-stage-dot"></span>
-              <span>Stage 2 – Candidate Application</span>
+          <div style="text-align:right;font-size:11px;">
+            <div style="padding:3px 10px;border-radius:999px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.4);margin-bottom:4px;">
+              Stage 2 – Candidate Application
             </div>
-            <div class="pdf-empid" id="pdf-empid">ID: —</div>
+            <div>ID: <span id="hdr-empid">—</span></div>
           </div>
-        </div>
-
-        <hr class="pdf-divider" />
-
-        <!-- Header controls (section chips) -->
-        <div class="candidate-section" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:16px;">
-          <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
-            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">1. 👤 Basic Info</span>
-            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">2. 🗂️ Preferences</span>
-            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">3. ❓ Reason</span>
-            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">4. 🧭 Role Qs</span>
-            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">5. 🚚 Mobility</span>
-            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">6. ⚡ Aspiration</span>
-          </div>
-
-          <div style="display:flex;gap:6px;align-items:center;">
-            <button type="button"
-              class="px-3 py-1.5 rounded-lg border border-blue-300 text-blue-700 hover:bg-blue-50"
-              onclick="showInstructions()">
-              Show Instructions
-            </button>
-
-            <!-- Show Example menu -->
-            <div style="position:relative;">
-              <button id="exampleBtn" type="button" onclick="toggleMenu()" class="px-3 py-1.5 rounded-lg border border-blue-300 text-blue-700 hover:bg-blue-50" style="display:flex;align-items:center;gap:4px;">
-                Show Example
-                <span style="font-size:14px;">▾</span>
-              </button>
-              <div id="exampleMenu" class="hidden" style="position:absolute;right:0;margin-top:4px;width:14rem;background:#ffffff;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 6px 18px rgba(15,23,42,0.12);display:none;z-index:10;">
-                <button type="button" onclick="loadExample('pd')" style="width:100%;text-align:left;padding:8px 12px;font-size:13px;border:none;background:transparent;cursor:pointer;">Product Development</button>
-                <button type="button" onclick="loadExample('qa')" style="width:100%;text-align:left;padding:8px 12px;font-size:13px;border:none;background:transparent;cursor:pointer;">Quality Assurance</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Info panel -->
-        <div id="infoPanel" class="candidate-section" style="margin-bottom:16px;border-radius:8px;border:1px solid #bfdbfe;background:#eff6ff;padding:10px;font-size:11px;color:#1e3a8a;">
-          <div style="font-weight:600;margin-bottom:4px;">Instructions</div>
-          Fill in each section carefully and completely. Use the <strong>SBI (Situation–Behavior–Impact)</strong> format to support your examples whenever possible.
         </div>
 
         <!-- ===== ROW 1: Basic Info | Role-Specific Questions ===== -->
-        <div class="candidate-section" style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+        <div class="profile-row profile-section">
           <!-- Basic Info -->
-          <div style="flex:1 1 260px;">
-            <div style="height:100%;border:1px solid #e5e7eb;border-radius:8px;padding:12px;">
+          <div class="profile-col">
+            <div class="h-full border rounded-lg p-4">
               <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
-                <span>👤</span><h4 style="margin:0;font-weight:600;color:#111827;">Basic Info</h4>
+                <span>👤</span>
+                <h4 style="margin:0;font-weight:600;color:#111827;">Basic Info</h4>
               </div>
               <dl style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;font-size:13px;">
                 <div>
                   <dt style="color:#6b7280;">Full name</dt>
-                  <dd id="bi-name" style="margin:0;color:#111827;">—</dd>
+                  <dd id="bi-name" style="margin:0;color:#111827;font-weight:500;">—</dd>
                 </div>
                 <div>
                   <dt style="color:#6b7280;">Department</dt>
-                  <dd id="bi-dept" style="margin:0;color:#111827;">—</dd>
+                  <dd id="bi-dept" style="margin:0;color:#111827;font-weight:500;">—</dd>
                 </div>
                 <div style="grid-column:1 / -1;">
                   <dt style="color:#6b7280;">Current role</dt>
-                  <dd id="bi-role" style="margin:0;color:#111827;">—</dd>
+                  <dd id="bi-role" style="margin:0;color:#111827;font-weight:500;">—</dd>
                 </div>
               </dl>
             </div>
           </div>
 
-          <!-- Role-Specific Questions with tabs -->
-          <div style="flex:1 1 260px;">
-            <div style="height:100%;border:1px solid #e5e7eb;border-radius:8px;padding:12px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-                <div style="display:flex;gap:6px;align-items:center;">
-                  <span>🧭</span><h4 style="margin:0;font-weight:600;color:#111827;">Role-Specific Questions</h4>
-                </div>
-                <!-- mini tabs -->
-                <div id="roleTabs" style="display:flex;border-radius:6px;overflow:hidden;border:1px solid #bfdbfe;font-size:11px;">
-                  <button id="tabMgr" type="button"
-                    style="padding:4px 10px;border:none;background:#2563eb;color:#ffffff;font-weight:500;cursor:pointer;"
-                    onclick="setRoleTab('mgr')">
-                    Managerial
-                  </button>
-                  <button id="tabIC" type="button"
-                    style="padding:4px 10px;border:none;background:#ffffff;color:#1d4ed8;font-weight:500;cursor:pointer;"
-                    onclick="setRoleTab('ic')">
-                    Non-managerial
-                  </button>
-                </div>
+          <!-- Role-Specific Questions -->
+          <div class="profile-col">
+            <div class="h-full border rounded-lg p-4">
+              <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
+                <span>🧭</span>
+                <h4 style="margin:0;font-weight:600;color:#111827;">Role-Specific Questions (Managerial)</h4>
               </div>
-
-              <!-- Managerial panel -->
-              <div id="panelMgr">
-                <p style="font-size:13px;color:#111827;margin:0 0 8px;" id="mgrAnswers">
-                  Leadership Style & Team Motivation: Describe how you lead and inspire others to achieve shared goals. Explain how you communicate direction, build trust, and maintain motivation and accountability within your team.
-                </p>
-                <div style="font-size:11px;color:#1d4ed8;border-radius:6px;border:1px solid #bfdbfe;background:#eff6ff;padding:8px;">
-                  Tip: Use a recent example that demonstrates how you guided your team, resolved challenges, and celebrated results.
-                </div>
-              </div>
-
-              <!-- Non-managerial panel -->
-              <div id="panelIC" class="hidden">
-                <p style="font-size:13px;color:#111827;margin:0 0 8px;" id="icAnswers">
-                  Technical Expertise & Problem-Solving: Describe the key technical skills that make you effective in your role and how you apply them to overcome complex work challenges.
-                </p>
-                <div style="font-size:11px;color:#1d4ed8;border-radius:6px;border:1px solid #bfdbfe;background:#eff6ff;padding:8px;">
-                  Tip: Highlight specific tools, methods, or examples that show your ability to solve problems and deliver practical results.
-                </div>
-              </div>
+              <p style="font-size:13px;color:#111827;margin:0;">
+                <span style="font-weight:600;">Leadership Style &amp; Team Motivation:</span>
+                <span id="mgrAnswers">
+                  Describe how you lead and inspire others to achieve shared goals. Explain how you communicate direction, build trust, and maintain motivation and accountability within your team.
+                </span>
+              </p>
             </div>
           </div>
         </div>
 
         <!-- ===== ROW 2: Preferences | Mobility ===== -->
-        <div class="candidate-section" style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+        <div class="profile-row profile-section">
           <!-- Preferences -->
-          <div style="flex:1 1 260px;position:relative;">
-            <div style="height:100%;border:1px solid #e5e7eb;border-radius:8px;padding:12px;">
+          <div class="profile-col" style="position:relative;">
+            <div class="h-full border rounded-lg p-4">
               <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
-                <span>🗂️</span><h4 style="margin:0;font-weight:600;color:#111827;">Succession Preferences</h4>
+                <span>🗂️</span>
+                <h4 style="margin:0;font-weight:600;color:#111827;">Succession Preferences</h4>
               </div>
-              <div id="onePrefBadge" style="position:absolute;top:8px;right:16px;font-size:11px;border-radius:999px;padding:2px 6px;border:1px solid #bfdbfe;background:#dbeafe;color:#1d4ed8;display:none;">
+              <p style="font-size:11px;color:#4b5563;margin:0 0 8px;">
+                You may list one or two preferences. If two, at least one must be in your current department.
+              </p>
+              <div id="onePrefBadge" style="display:none;position:absolute;top:10px;right:18px;font-size:11px;border-radius:999px;padding:2px 6px;border:1px solid #bfdbfe;background:#dbeafe;color:#1d4ed8;">
                 Only 1 preference provided
               </div>
-              <p style="font-size:11px;color:#4b5563;margin-bottom:8px;">
-                You may list <span style="font-weight:500;">one or two</span> preferences. If two, at least one must be in your current department.
-              </p>
+
               <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;">
-                <div style="border-radius:8px;border:1px solid #bfdbfe;background:#eff6ff;padding:8px;">
+                <div style="border-radius:8px;border:1px solid #bfdbfe;background:#eff6ff;padding:8px 10px;">
                   <div style="font-size:11px;color:#1d4ed8;margin-bottom:4px;font-weight:600;">1st Preference</div>
-                  <div id="pref1" style="font-size:13px;color:#111827;">—</div>
+                  <div id="pref1" style="font-size:13px;color:#111827;font-weight:500;">—</div>
                 </div>
-                <div style="border-radius:8px;border:1px solid #bfdbfe;background:#eff6ff;padding:8px;position:relative;">
+                <div style="border-radius:8px;border:1px solid #bfdbfe;background:#eff6ff;padding:8px 10px;position:relative;">
                   <div style="font-size:11px;color:#1d4ed8;margin-bottom:4px;font-weight:600;">2nd Preference</div>
-                  <div id="pref2" style="font-size:13px;color:#111827;">—</div>
-                  <div id="crossNotice" style="position:absolute;top:4px;right:4px;font-size:10px;border-radius:999px;padding:2px 6px;background:#fef9c3;color:#a16207;display:none;">
+                  <div id="pref2" style="font-size:13px;color:#111827;font-weight:500;">—</div>
+                  <div id="crossNotice" style="display:none;position:absolute;top:4px;right:4px;font-size:10px;border-radius:999px;padding:2px 6px;background:#fef9c3;color:#a16207;">
                     Cross-Dept
                   </div>
                 </div>
@@ -1123,19 +969,20 @@
           </div>
 
           <!-- Mobility -->
-          <div style="flex:1 1 260px;">
-            <div style="height:100%;border:1px solid #e5e7eb;border-radius:8px;padding:12px;">
+          <div class="profile-col">
+            <div class="h-full border rounded-lg p-4">
               <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
-                <span>🚚</span><h4 style="margin:0;font-weight:600;color:#111827;">Mobility & Availability</h4>
+                <span>🚚</span>
+                <h4 style="margin:0;font-weight:600;color:#111827;">Mobility &amp; Availability</h4>
               </div>
               <dl style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;font-size:13px;">
                 <div>
                   <dt style="color:#6b7280;">Willing to relocate?</dt>
-                  <dd id="mob-relocate" style="margin:0;color:#111827;">—</dd>
+                  <dd id="mob-relocate" style="margin:0;color:#111827;font-weight:500;">—</dd>
                 </div>
                 <div>
                   <dt style="color:#6b7280;">Open to change dept?</dt>
-                  <dd id="mob-change" style="margin:0;color:#111827;">—</dd>
+                  <dd id="mob-change" style="margin:0;color:#111827;font-weight:500;">—</dd>
                 </div>
               </dl>
             </div>
@@ -1143,11 +990,12 @@
         </div>
 
         <!-- ===== ROW 3: Reason | Aspiration ===== -->
-        <div class="candidate-section" style="display:flex;flex-wrap:wrap;gap:12px;">
-          <div style="flex:1 1 260px;">
-            <div style="height:100%;border:1px solid #e5e7eb;border-radius:8px;padding:12px;">
+        <div class="profile-row profile-section">
+          <div class="profile-col">
+            <div class="h-full border rounded-lg p-4">
               <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
-                <span>❓</span><h4 style="margin:0;font-weight:600;color:#111827;">Reason for Each Preference</h4>
+                <span>❓</span>
+                <h4 style="margin:0;font-weight:600;color:#111827;">Reason for Each Preference</h4>
               </div>
               <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;font-size:13px;">
                 <div>
@@ -1162,10 +1010,11 @@
             </div>
           </div>
 
-          <div style="flex:1 1 260px;">
-            <div style="height:100%;border:1px solid #e5e7eb;border-radius:8px;padding:12px;">
+          <div class="profile-col">
+            <div class="h-full border rounded-lg p-4">
               <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
-                <span>⚡</span><h4 style="margin:0;font-weight:600;color:#111827;">Career Aspiration & Motivation</h4>
+                <span>⚡</span>
+                <h4 style="margin:0;font-weight:600;color:#111827;">Career Aspiration &amp; Motivation</h4>
               </div>
               <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;font-size:13px;">
                 <div>
@@ -1177,13 +1026,10 @@
                   <p id="asp-mid" style="margin:0;color:#111827;">—</p>
                 </div>
               </div>
-              <div style="font-size:11px;color:#1d4ed8;border-radius:6px;border:1px solid #bfdbfe;background:#eff6ff;padding:8px;margin-top:10px;">
-                <p style="margin:0;">Note: This program is a <strong>Talent Development initiative</strong> (not a promotion program).</p>
-                <p style="margin:4px 0 0;">Preferences will be visible to relevant HoDs for career discussion & alignment.</p>
-              </div>
             </div>
           </div>
         </div>
+
       </div>
 
       <!-- Buttons for profile stage -->
@@ -1192,7 +1038,7 @@
           ⬅ Back to form
         </button>
         <button type="button" class="btn btn-primary" id="finalSubmitBtn">
-          ✅ Confirm & Download JSON + PDF
+          ✅ Confirm &amp; Download JSON + PDF
         </button>
       </div>
     </div>
@@ -1243,7 +1089,7 @@
         id: "AHR_STL_TD",
         title: "Senior Talent Development Specialist",
         dept: "Asia Human Resources",
-        type: "individual"
+        type: "managerial"
       },
       {
         id: "AHR_MGR_HR_ADMIN",
@@ -1275,13 +1121,13 @@
         id: "ENG_PROCESS_ENG",
         title: "Process Engineer",
         dept: "Engineering",
-        type: "individual"
+        type: "managerial"
       },
       {
         id: "ENG_PACKAGING_ENG",
         title: "Packaging Engineer",
         dept: "Engineering",
-        type: "individual"
+        type: "managerial"
       },
 
       // Product Development
@@ -1307,7 +1153,7 @@
         id: "PD_3D_ARTIST",
         title: "3D Artist",
         dept: "Product Development",
-        type: "individual"
+        type: "managerial"
       },
 
       // Quality Assurance
@@ -1315,7 +1161,7 @@
         id: "QA_VENDOR_CHAMP",
         title: "Vendor Champion",
         dept: "Quality Assurance",
-        type: "individual"
+        type: "managerial"
       },
       {
         id: "QA_TL_PERF_TEST",
@@ -1327,7 +1173,7 @@
         id: "QA_MATERIAL_ASSURANCE",
         title: "Material Assurance Specialist",
         dept: "Quality Assurance",
-        type: "individual"
+        type: "managerial"
       },
 
       // Strategy Execution
@@ -1341,7 +1187,7 @@
         id: "STR_EXEC_ASSOC",
         title: "Process Integration Associate",
         dept: "Strategy Execution",
-        type: "individual"
+        type: "managerial"
       },
 
       // Strategic Sourcing
@@ -1355,13 +1201,13 @@
         id: "SS_MATERIAL_SOURCING",
         title: "Material Sourcing Specialist",
         dept: "Strategic Sourcing",
-        type: "individual"
+        type: "managerial"
       },
       {
         id: "SS_COST_ANALYST",
         title: "Cost Analyst",
         dept: "Strategic Sourcing",
-        type: "individual"
+        type: "managerial"
       },
 
       // CGI / Creative
@@ -1369,13 +1215,13 @@
         id: "CGI_PHOTOGRAPHER",
         title: "CGI Photographer",
         dept: "CGI / Creative",
-        type: "individual"
+        type: "managerial"
       },
       {
         id: "CGI_3D_ANIM",
         title: "3D Animation Artist",
         dept: "CGI / Creative",
-        type: "individual"
+        type: "managerial"
       },
 
       // Sourcing Operations
@@ -1383,13 +1229,13 @@
         id: "SO_INDUSTRIAL_ENG",
         title: "Industrial Engineer",
         dept: "Sourcing Operations",
-        type: "individual"
+        type: "managerial"
       },
       {
         id: "SO_FIELD_TEST_COORD",
         title: "Field Testing Coordinator",
         dept: "Sourcing Operations",
-        type: "individual"
+        type: "managerial"
       }
     ];
 
@@ -1398,7 +1244,7 @@
       rolesMap[r.id] = r;
     });
 
-    let lastPayload = null; // payload sau form submit
+    let lastPayload = null; // lưu payload sau form submit
 
     // ===============================
     // DOM HELPERS
@@ -1424,11 +1270,7 @@
         el.innerHTML =
           "Department: <strong>" +
           role.dept +
-          "</strong> · <span style='font-size:11px;color:#6b7280'>(" +
-          (role.type === "managerial"
-            ? "Managerial"
-            : "Individual contributor") +
-          ")</span>";
+          "</strong> · <span style='font-size:11px;color:#6b7280'>(Managerial)</span>";
       }
     }
 
@@ -1514,44 +1356,6 @@
         crossBlock.classList.add("hidden");
         crossText.required = false;
       }
-
-      // Managerial vs Individual contributor logic
-      let hasManagerial = false;
-      let hasIndividual = false;
-
-      [pref1Role, pref2Role].forEach((r) => {
-        if (!r) return;
-        if (r.type === "managerial") hasManagerial = true;
-        if (r.type === "individual") hasIndividual = true;
-      });
-
-      const leadershipBlock = $("leadershipBlock");
-      const technicalBlock = $("technicalBlock");
-
-      const leadershipStyle = $("leadershipStyle");
-      const leadershipExample = $("leadershipExample");
-      const technicalContribution = $("technicalContribution");
-      const technicalSBI = $("technicalSBI");
-
-      if (hasManagerial) {
-        leadershipBlock.classList.remove("hidden");
-        leadershipStyle.required = true;
-        leadershipExample.required = true;
-      } else {
-        leadershipBlock.classList.add("hidden");
-        leadershipStyle.required = false;
-        leadershipExample.required = false;
-      }
-
-      if (hasIndividual) {
-        technicalBlock.classList.remove("hidden");
-        technicalContribution.required = true;
-        technicalSBI.required = true;
-      } else {
-        technicalBlock.classList.add("hidden");
-        technicalContribution.required = false;
-        technicalSBI.required = false;
-      }
     }
 
     // ===============================
@@ -1566,7 +1370,7 @@
       $("pref2Role").innerHTML =
         '<option value="">-- No secondary preference --</option>';
 
-      // Load lại options
+      // Load options
       initDepartments();
       initRoles();
 
@@ -1578,17 +1382,14 @@
       $("currentRole").value = "Process Engineer";
 
       // ===== PREFERENCES =====
-      // Pref 1: cùng phòng Engineering – managerial
       $("pref1Role").value = "ENG_PM"; // Engineering Project Manager
       $("pref1Reason").value =
         "I aim to grow into a project leadership role where I can coordinate cross-functional work, manage timelines, and deliver impactful engineering outcomes for both factory and commercial teams.";
 
-      // Pref 2: khác phòng – Strategy Execution – managerial
       $("pref2Role").value = "STR_EXEC_MGR"; // Manager of Strategy Execution
       $("pref2Reason").value =
         "I am also interested in Strategy Execution because it connects data, projects and business priorities. This role would allow me to work across departments and drive initiatives that improve execution discipline.";
 
-      // Cross-department justification (pref2 khác phòng)
       $("crossJustification").value =
         "My current role in Engineering already requires frequent collaboration with Strategy Execution on project timelines, risk tracking and improvement initiatives, so I have relevant exposure and interest in this area.";
 
@@ -1598,10 +1399,6 @@
       $("leadershipExample").value =
         "Recently, our project team faced delays due to conflicting priorities. I organised a short alignment session, clarified the key milestones, reassigned some tasks based on strengths, and followed up weekly. As a result, we caught up on the timeline and the team reported higher clarity and confidence.";
 
-      // (Không cần technical vì 2 role sample đều managerial)
-      $("technicalContribution").value = "";
-      $("technicalSBI").value = "";
-
       // ===== CAREER & MOTIVATION =====
       $("careerGoals").value =
         "In the next 1–3 years, I want to become strong in project management, stakeholder communication and cross-functional coordination so that I can take on larger regional projects and lead teams effectively.";
@@ -1609,7 +1406,6 @@
         "I want to be considered for these roles because I believe I can contribute more by coordinating people, processes and data, not only by doing individual engineering tasks. I am committed to long-term development with Ashley and ready to invest effort to grow into these roles.";
 
       // ===== MOBILITY =====
-      // Change dept: maybe
       document
         .querySelectorAll('input[name="changeDept"]')
         .forEach((x) => (x.checked = false));
@@ -1617,7 +1413,6 @@
         'input[name="changeDept"][value="maybe"]'
       ).checked = true;
 
-      // Relocation: tick 2 lựa chọn
       document
         .querySelectorAll('input[name="relocateOptions"]')
         .forEach((c) => (c.checked = false));
@@ -1637,7 +1432,7 @@
       $("consentSharing").checked = true;
       $("consentAccuracy").checked = true;
 
-      // Cập nhật lại toàn bộ logic hiển thị (cross-dept + managerial)
+      // Cập nhật lại logic hiển thị (cross-dept)
       updateRoleDependentUI();
 
       alert(
@@ -1731,29 +1526,14 @@
         );
       }
 
-      // Managerial / technical blocks (if visible, required)
-      const leadershipVisible =
-        !$("leadershipBlock").classList.contains("hidden");
-      if (leadershipVisible) {
-        if (!$("leadershipStyle").value.trim()) {
-          errors.push("Please describe your future leadership style.");
-        }
-        if (!$("leadershipExample").value.trim()) {
-          errors.push(
-            "Please provide an example of how you influenced or motivated others."
-          );
-        }
+      // Managerial leadership questions
+      if (!$("leadershipStyle").value.trim()) {
+        errors.push("Please describe your future leadership style.");
       }
-
-      const technicalVisible =
-        !$("technicalBlock").classList.contains("hidden");
-      if (technicalVisible) {
-        if (!$("technicalContribution").value.trim()) {
-          errors.push("Please describe your meaningful technical contribution.");
-        }
-        if (!$("technicalSBI").value.trim()) {
-          errors.push("Please explain the contribution using SBI.");
-        }
+      if (!$("leadershipExample").value.trim()) {
+        errors.push(
+          "Please provide an example of how you influenced or motivated others."
+        );
       }
 
       // Mobility
@@ -1849,10 +1629,7 @@
         },
         roleSpecific: {
           leadershipStyle: $("leadershipStyle").value.trim() || null,
-          leadershipExample: $("leadershipExample").value.trim() || null,
-          technicalContribution:
-            $("technicalContribution").value.trim() || null,
-          technicalSBI: $("technicalSBI").value.trim() || null
+          leadershipExample: $("leadershipExample").value.trim() || null
         },
         careerAndMobility: {
           careerGoals: $("careerGoals").value.trim(),
@@ -1900,15 +1677,14 @@
     }
 
     function fillProfileCard(payload) {
+      // Header
+      $("hdr-name").innerText = payload.candidate.fullName || "—";
+      $("hdr-empid").innerText = payload.candidate.employeeId || "—";
+
       // Basic info
       $("bi-name").innerText = payload.candidate.fullName || "—";
       $("bi-dept").innerText = payload.candidate.currentDept || "—";
       $("bi-role").innerText = payload.candidate.currentRole || "—";
-
-      $("pdf-name").innerText =
-        "Candidate: " + (payload.candidate.fullName || "—");
-      $("pdf-empid").innerText =
-        "ID: " + (payload.candidate.employeeId || "—");
 
       // Preferences
       const p1 = payload.preferences.preference1;
@@ -1916,34 +1692,24 @@
 
       if (p1) {
         $("pref1").innerText =
-          p1.roleTitle +
-          " (" +
-          p1.department +
-          (p1.type === "managerial" ? ", Managerial" : "") +
-          ")";
+          p1.roleTitle + " (" + p1.department + ", Managerial)";
       } else {
         $("pref1").innerText = "—";
       }
 
       if (p2) {
         $("pref2").innerText =
-          p2.roleTitle +
-          " (" +
-          p2.department +
-          (p2.type === "managerial" ? ", Managerial" : "") +
-          ")";
+          p2.roleTitle + " (" + p2.department + ", Managerial)";
       } else {
         $("pref2").innerText = "—";
       }
 
-      // One preference badge
       if (p1 && !p2) {
         $("onePrefBadge").style.display = "inline-flex";
       } else {
         $("onePrefBadge").style.display = "none";
       }
 
-      // Cross-dept badge for 2nd preference
       const currentDept = payload.candidate.currentDept;
       if (p2 && currentDept && p2.department !== currentDept) {
         $("crossNotice").style.display = "inline-flex";
@@ -1969,57 +1735,17 @@
       $("asp-mid").innerText =
         payload.careerAndMobility.motivation || "—";
 
-      // Role-specific answers in text form
-      const hasMgr =
-        (p1 && p1.type === "managerial") ||
-        (p2 && p2.type === "managerial");
-      const hasIC =
-        (p1 && p1.type === "individual") ||
-        (p2 && p2.type === "individual");
-
+      // Role-specific (managerial only)
       const mgrTextParts = [];
       if (payload.roleSpecific.leadershipStyle) {
-        mgrTextParts.push("Leadership Style: " + payload.roleSpecific.leadershipStyle);
+        mgrTextParts.push(payload.roleSpecific.leadershipStyle);
       }
       if (payload.roleSpecific.leadershipExample) {
-        mgrTextParts.push("Example: " + payload.roleSpecific.leadershipExample);
+        mgrTextParts.push(payload.roleSpecific.leadershipExample);
       }
       $("mgrAnswers").innerText =
         mgrTextParts.join(" ") ||
-        "Leadership Style & Team Motivation: Describe how you lead and inspire others to achieve shared goals.";
-
-      const icTextParts = [];
-      if (payload.roleSpecific.technicalContribution) {
-        icTextParts.push("Technical Contribution: " + payload.roleSpecific.technicalContribution);
-      }
-      if (payload.roleSpecific.technicalSBI) {
-        icTextParts.push("SBI: " + payload.roleSpecific.technicalSBI);
-      }
-      $("icAnswers").innerText =
-        icTextParts.join(" ") ||
-        "Technical Expertise & Problem-Solving: Describe the key technical skills that make you effective and how you solve problems.";
-
-      // Show/hide panels depending on role type
-      if (hasMgr) {
-        $("panelMgr").classList.remove("hidden");
-      } else {
-        $("panelMgr").classList.add("hidden");
-      }
-
-      if (hasIC) {
-        $("panelIC").classList.remove("hidden");
-      } else {
-        $("panelIC").classList.add("hidden");
-      }
-
-      // Default tab
-      if (hasMgr) {
-        setRoleTab("mgr");
-      } else if (hasIC) {
-        setRoleTab("ic");
-      } else {
-        setRoleTab("mgr");
-      }
+        "Describe how you lead and inspire others to achieve shared goals.";
     }
 
     // ===============================
@@ -2047,88 +1773,28 @@
 
     function downloadProfilePdf(payload) {
       const element = $("candidateProfileCard");
+      const rect = element.getBoundingClientRect();
+      const width = rect.width;
+      const height = element.scrollHeight;
+
       const employeeId =
         (payload.candidate.employeeId || "candidate")
           .replace(/[^a-zA-Z0-9_-]/g, "_");
 
-      // tránh lỗi trắng: đưa viewport về top + set windowWidth/Height
-      window.scrollTo(0, 0);
-
       const opt = {
-        margin:       10, // mm
-        filename:     "candidate_profile_" + employeeId + ".pdf",
-        image:        { type: "jpeg", quality: 0.98 },
-        html2canvas:  {
-          scale: 2,
-          useCORS: true,
-          allowTaint: true,
-          scrollX: 0,
-          scrollY: 0,
-          windowWidth: element.scrollWidth,
-          windowHeight: element.scrollHeight
+        margin: 0,
+        filename: "candidate_profile_" + employeeId + ".pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: {
+          unit: "px",
+          format: [width, height],
+          orientation: height >= width ? "portrait" : "landscape"
         },
-        jsPDF:        { unit: "mm", format: "a4", orientation: "portrait" }
+        pagebreak: { mode: ["css"] }
       };
 
-      html2pdf()
-        .set(opt)
-        .from(element)
-        .save()
-        .catch(err => {
-          console.error(err);
-          alert("PDF rendering error. Please try again or reduce very long text blocks.");
-        });
-    }
-
-    // ===============================
-    // SMALL UI HELPERS (tabs, menu, instructions)
-    // ===============================
-
-    function setRoleTab(tab) {
-      const tabMgr = $("tabMgr");
-      const tabIC = $("tabIC");
-      const panelMgr = $("panelMgr");
-      const panelIC = $("panelIC");
-
-      if (tab === "mgr") {
-        tabMgr.style.background = "#2563eb";
-        tabMgr.style.color = "#ffffff";
-        tabIC.style.background = "#ffffff";
-        tabIC.style.color = "#1d4ed8";
-        panelMgr.classList.remove("hidden");
-        panelIC.classList.add("hidden");
-      } else {
-        tabIC.style.background = "#2563eb";
-        tabIC.style.color = "#ffffff";
-        tabMgr.style.background = "#ffffff";
-        tabMgr.style.color = "#1d4ed8";
-        panelIC.classList.remove("hidden");
-        panelMgr.classList.add("hidden");
-      }
-    }
-
-    function showInstructions() {
-      const panel = $("infoPanel");
-      if (panel.classList.contains("hidden")) {
-        panel.classList.remove("hidden");
-      } else {
-        panel.classList.add("hidden");
-      }
-    }
-
-    function toggleMenu() {
-      const menu = $("exampleMenu");
-      if (menu.style.display === "block") {
-        menu.style.display = "none";
-      } else {
-        menu.style.display = "block";
-      }
-    }
-
-    function loadExample(type) {
-      // placeholder để bạn tự thêm text mẫu theo department
-      toggleMenu();
-      alert("Example loader placeholder – bạn có thể code thêm để load sample text cho " + type.toUpperCase() + ".");
+      html2pdf().from(element).set(opt).save();
     }
 
     // ===============================
@@ -2207,7 +1873,7 @@
           alert("Please submit the application form first.");
           return;
         }
-        const finalPayload = lastPayload; // JSON & PDF luôn theo form, không sửa trong profile
+        const finalPayload = lastPayload; // JSON & PDF luôn bám theo form
         showJsonPreview(finalPayload);
         downloadJson(finalPayload);
         downloadProfilePdf(finalPayload);
