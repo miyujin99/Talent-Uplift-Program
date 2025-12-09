@@ -12,9 +12,10 @@
     :root {
       --ashley-orange: #f78e2f;
       --ashley-orange-dark: #d86f12;
-      --bg-light: #f5f5f7;
+      --bg-light: #f3f4f6;
       --text-main: #111827;
       --border-soft: #e5e7eb;
+      --blue-soft: #e0ecff;
     }
 
     * {
@@ -38,12 +39,14 @@
 
     .card {
       background: #ffffff;
-      border-radius: 12px;
+      border-radius: 14px;
       border: 1px solid var(--border-soft);
-      padding: 20px 18px 22px;
+      padding: 20px 20px 22px;
       margin-bottom: 18px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
     }
+
+    /* ========== HEADER ========== */
 
     .header-main {
       display: flex;
@@ -56,7 +59,7 @@
 
     .title {
       font-size: 22px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--ashley-orange-dark);
       letter-spacing: 0.02em;
     }
@@ -64,7 +67,7 @@
     .subtitle {
       font-size: 13px;
       color: #4b5563;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .tag {
@@ -78,6 +81,7 @@
       font-weight: 600;
       color: #9a3412;
       gap: 4px;
+      white-space: nowrap;
     }
 
     .tag-dot {
@@ -87,31 +91,72 @@
       background: var(--ashley-orange);
     }
 
-    h2.section-title {
-      font-size: 16px;
-      font-weight: 700;
-      margin: 0 0 4px;
+    .info-badge {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6b7280;
+    }
+
+    /* ========== FORM SECTIONS ========== */
+
+    .section-block {
+      border-radius: 12px;
+      padding: 14px 14px 10px;
+      margin-bottom: 14px;
+      background: linear-gradient(
+          90deg,
+          rgba(247, 142, 47, 0.09),
+          rgba(59, 130, 246, 0.02)
+        ),
+        #ffffff;
+      border-left: 4px solid var(--ashley-orange);
+    }
+
+    .section-header-row {
       display: flex;
       align-items: center;
-      gap: 6px;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    h2.section-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       color: #111827;
     }
 
     h2.section-title span.section-badge {
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
       color: #fb923c;
       background: #fff7ed;
       border-radius: 999px;
-      padding: 2px 8px;
+      padding: 2px 9px;
       border: 1px solid #fed7aa;
+    }
+
+    .section-chip {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      white-space: nowrap;
     }
 
     .section-desc {
       font-size: 12px;
       color: #6b7280;
-      margin-bottom: 12px;
+      margin: 0 0 10px;
     }
 
     .grid-2 {
@@ -127,7 +172,7 @@
     }
 
     .field {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .field-label {
@@ -148,6 +193,12 @@
       font-size: 11px;
       color: #6b7280;
       margin-bottom: 3px;
+    }
+
+    .field-error {
+      font-size: 11px;
+      color: #b91c1c;
+      margin-top: 3px;
     }
 
     input[type="text"],
@@ -192,18 +243,10 @@
       margin-bottom: 8px;
     }
 
-    .info-badge {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: #6b7280;
-    }
-
     .preference-wrapper {
       border-radius: 10px;
       border: 1px dashed #e5e7eb;
-      padding: 10px 10px 4px;
+      padding: 10px 10px 6px;
       margin-bottom: 8px;
       background: #f9fafb;
     }
@@ -230,29 +273,6 @@
       font-size: 11px;
       color: #4b5563;
       margin-top: 4px;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .error-box {
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      color: #b91c1c;
-      border-radius: 10px;
-      padding: 9px 11px;
-      margin-bottom: 10px;
-      font-size: 12px;
-    }
-
-    .error-box ul {
-      padding-left: 18px;
-      margin: 4px 0 0;
-    }
-
-    .error-box li {
-      margin: 1px 0;
     }
 
     .checkbox-row,
@@ -292,7 +312,7 @@
       display: flex;
       justify-content: flex-end;
       gap: 10px;
-      margin-top: 12px;
+      margin-top: 14px;
     }
 
     .btn {
@@ -346,7 +366,7 @@
     .success-msg {
       font-size: 12px;
       color: #15803d;
-      margin-top: 6px;
+      margin-top: 8px;
     }
 
     .json-output {
@@ -366,44 +386,237 @@
       color: #facc15;
     }
 
-    .editable-hint {
-      font-size: 11px;
-      color: #6b7280;
-      margin-top: 4px;
+    .has-error {
+      border-color: #f97373 !important;
+      background: #fef2f2 !important;
     }
 
-    /* ==== Candidate Profile – PDF layout ==== */
-    #candidateProfileCard {
-      max-width: 820px;
-      margin: 0 auto;
-      border-radius: 12px;
-      border: 1px solid #e5e7eb;
-      padding: 20px 24px 24px;
-      box-sizing: border-box;
-      font-size: 13px;
-      line-height: 1.45;
+    hr.soft {
+      border: none;
+      border-bottom: 1px dashed #e5e7eb;
+      margin: 16px 0;
+    }
+
+    /* ========== MODAL & PROFILE (PDF) ========== */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+    }
+
+    .modal-dialog {
+      position: relative;
+      background: #f3f4f6;
+      border-radius: 16px;
+      max-width: 900px;
+      width: 96%;
+      max-height: 92vh;
+      overflow: auto;
+      padding: 18px 20px 20px;
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.65);
+    }
+
+    .modal-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      border: none;
+      background: transparent;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      color: #6b7280;
+    }
+
+    /* PDF wrapper roughly A4 width */
+    #pdfWrapper {
       background: #ffffff;
+      border-radius: 12px;
+      padding: 16px 18px 18px;
+      border: 1px solid #e5e7eb;
+      width: 800px;       /* ~ A4 width at 96dpi */
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .pdf-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      background: linear-gradient(
+        90deg,
+        #f97316,
+        #ea580c
+      );
+      color: #fefce8;
+    }
+
+    .pdf-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .pdf-logo-box {
+      width: 70px;
+      height: 26px;
+      border-radius: 999px;
+      background: #fef3c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #b45309;
+    }
+
+    .pdf-header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
+      font-size: 11px;
+    }
+
+    .pdf-tag {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(254, 243, 199, 0.9);
+      background: rgba(254, 243, 199, 0.18);
+      font-weight: 600;
+    }
+
+    .pdf-id {
+      font-weight: 600;
+      opacity: 0.95;
+    }
+
+    #candidateProfileCard {
+      border-radius: 10px;
+      border: 1px solid #dbeafe;
+      padding: 12px 12px 14px;
+      font-size: 13px;
+      background: #f9fafb;
     }
 
     .profile-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 16px;
+      gap: 12px;
+      margin-bottom: 10px;
     }
 
     .profile-col {
       flex: 1 1 260px;
     }
 
-    .profile-section {
-      page-break-inside: avoid;
+    .box {
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      background: #ffffff;
+      padding: 10px 10px 8px;
+      height: 100%;
     }
 
-    @media (max-width: 768px) {
-      #candidateProfileCard {
-        padding: 16px;
-      }
+    .box-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .box-header span.icon {
+      font-size: 14px;
+    }
+
+    .box-subtitle {
+      font-size: 11px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .dl-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 12px;
+      font-size: 12px;
+    }
+
+    .dl-grid dt {
+      color: #6b7280;
+    }
+
+    .dl-grid dd {
+      margin: 0;
+      color: #111827;
+    }
+
+    .pill-small {
+      font-size: 11px;
+      border-radius: 999px;
+      padding: 2px 7px;
+      display: inline-block;
+    }
+
+    .pill-blue {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    .pill-yellow {
+      background: #fef9c3;
+      color: #854d0e;
+      border: 1px solid #facc15;
+    }
+
+    .profile-sbi {
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .profile-sbi dt {
+      font-weight: 600;
+      color: #4b5563;
+    }
+
+    .profile-sbi dd {
+      margin: 0 0 4px;
+    }
+
+    /* page break helper if ever needed */
+    .page-break {
+      page-break-before: always;
     }
   </style>
 </head>
@@ -430,14 +643,19 @@
 
     <!-- ========== FORM CARD ========== -->
     <form id="applicationForm" class="card" novalidate>
-      <div id="errorContainer" class="error-box hidden"></div>
+      <div id="successMessage" class="success-msg" style="display:none;">
+        ✅ Your application passed validation. A candidate profile preview has been generated. Please review and confirm in the popup window.
+      </div>
 
       <!-- SECTION 1 · CANDIDATE INFO -->
-      <section>
-        <h2 class="section-title">
-          <span class="section-badge">Section 1</span>
-          Candidate Information
-        </h2>
+      <section class="section-block">
+        <div class="section-header-row">
+          <h2 class="section-title">
+            <span class="section-badge">Section 1</span>
+            Candidate Information
+          </h2>
+          <div class="section-chip">👤 Who you are</div>
+        </div>
         <p class="section-desc">
           Basic details used for identification and to link your application to
           the nomination list.
@@ -452,10 +670,10 @@
               type="text"
               id="fullName"
               name="fullName"
-              required
               autocomplete="off"
               placeholder="e.g., Nguyen Van A"
             />
+            <div id="err-fullName" class="field-error"></div>
           </div>
 
           <div class="field">
@@ -466,10 +684,10 @@
               type="text"
               id="employeeId"
               name="employeeId"
-              required
               autocomplete="off"
               placeholder="e.g., VN01234"
             />
+            <div id="err-employeeId" class="field-error"></div>
           </div>
 
           <div class="field">
@@ -480,10 +698,10 @@
               type="email"
               id="workEmail"
               name="workEmail"
-              required
               autocomplete="off"
               placeholder="e.g., firstname.lastname@ashleyfurniture.com"
             />
+            <div id="err-workEmail" class="field-error"></div>
           </div>
 
           <div class="field">
@@ -493,10 +711,10 @@
             <div class="field-help">
               Select the department you are currently assigned to.
             </div>
-            <select id="currentDept" name="currentDept" required>
+            <select id="currentDept" name="currentDept">
               <option value="">-- Select department --</option>
-              <!-- Filled by JS -->
             </select>
+            <div id="err-currentDept" class="field-error"></div>
           </div>
         </div>
 
@@ -508,20 +726,23 @@
             type="text"
             id="currentRole"
             name="currentRole"
-            required
             placeholder="e.g., Team Leader of Product Development"
           />
+          <div id="err-currentRole" class="field-error"></div>
         </div>
       </section>
 
-      <hr style="border: none; border-bottom: 1px dashed #e5e7eb; margin: 18px 0" />
+      <hr class="soft" />
 
       <!-- SECTION 2 · SUCCESSION PREFERENCES -->
-      <section>
-        <h2 class="section-title">
-          <span class="section-badge">Section 2</span>
-          Succession Preferences
-        </h2>
+      <section class="section-block">
+        <div class="section-header-row">
+          <h2 class="section-title">
+            <span class="section-badge">Section 2</span>
+            Succession Preferences
+          </h2>
+          <div class="section-chip">🗂️ Target roles</div>
+        </div>
         <p class="section-desc">
           Select up to two roles you are interested in. At least one preference
           must be within your current department. Roles below are based on the
@@ -544,13 +765,13 @@
             <label class="field-label" for="pref1Role">
               Target Role (Preference 1) <span class="required">*</span>
             </label>
-            <select id="pref1Role" name="pref1Role" required>
+            <select id="pref1Role" name="pref1Role">
               <option value="">-- Select role --</option>
-              <!-- Filled by JS -->
             </select>
             <div id="pref1DeptLabel" class="pref-dept-label">
               Department: <em>--</em>
             </div>
+            <div id="err-pref1Role" class="field-error"></div>
           </div>
 
           <div class="field">
@@ -564,10 +785,10 @@
             <textarea
               id="pref1Reason"
               name="pref1Reason"
-              required
               minlength="30"
               placeholder="Please describe your motivation and how your strengths and aspirations fit this role (at least 2–3 lines)."
             ></textarea>
+            <div id="err-pref1Reason" class="field-error"></div>
           </div>
         </div>
 
@@ -588,11 +809,11 @@
             </div>
             <select id="pref2Role" name="pref2Role">
               <option value="">-- No secondary preference --</option>
-              <!-- Filled by JS -->
             </select>
             <div id="pref2DeptLabel" class="pref-dept-label">
               Department: <em>--</em>
             </div>
+            <div id="err-pref2Role" class="field-error"></div>
           </div>
 
           <div class="field">
@@ -608,11 +829,12 @@
               minlength="30"
               placeholder="Explain why this is also a suitable role for you."
             ></textarea>
+            <div id="err-pref2Reason" class="field-error"></div>
           </div>
         </div>
 
         <!-- CROSS-DEPT JUSTIFICATION -->
-        <div id="crossDeptBlock" class="field hidden">
+        <div id="crossDeptBlock" class="field" style="display:none;">
           <label class="field-label" for="crossJustification">
             Cross-department Justification <span class="required">*</span>
           </label>
@@ -625,19 +847,25 @@
             name="crossJustification"
             placeholder="Describe your rationale for applying to a role in another department, including relevant experiences and how you plan to bridge any gaps."
           ></textarea>
+          <div id="err-crossJustification" class="field-error"></div>
         </div>
       </section>
 
-      <hr style="border: none; border-bottom: 1px dashed #e5e7eb; margin: 18px 0" />
+      <hr class="soft" />
 
-      <!-- SECTION 3 · ROLE-SPECIFIC QUESTIONS (MANAGERIAL ONLY) -->
-      <section>
-        <h2 class="section-title">
-          <span class="section-badge">Section 3</span>
-          Role-Specific Questions (Managerial)
-        </h2>
+      <!-- SECTION 3 · ROLE-SPECIFIC (ALL MANAGERIAL) -->
+      <section class="section-block">
+        <div class="section-header-row">
+          <h2 class="section-title">
+            <span class="section-badge">Section 3</span>
+            Role-Specific Questions (Managerial)
+          </h2>
+          <div class="section-chip">🧭 Leadership focus</div>
+        </div>
         <p class="section-desc">
-          All target roles in this application involve people leadership. Please answer the following questions based on how you would lead in the future role.
+          As all target roles in this round are managerial, please describe your
+          leadership approach and provide one example using the SBI
+          (Situation–Behavior–Impact) format.
         </p>
 
         <div class="field">
@@ -645,41 +873,75 @@
             Future Leadership Style <span class="required">*</span>
           </label>
           <div class="field-help">
-            Describe how you would lead and support your team to achieve shared goals (e.g., communication, building trust, setting expectations).
+            How would you lead, motivate, and support your team in the target role?
           </div>
           <textarea
             id="leadershipStyle"
             name="leadershipStyle"
-            required
+            minlength="30"
             placeholder="Share your view on how you would lead people in the future role."
           ></textarea>
+          <div id="err-leadershipStyle" class="field-error"></div>
         </div>
 
         <div class="field">
-          <label class="field-label" for="leadershipExample">
-            Example of Influencing or Motivating Others
+          <label class="field-label">
+            Example of Influencing or Motivating Others (SBI)
             <span class="required">*</span>
           </label>
           <div class="field-help">
-            Briefly describe a real situation where you influenced or motivated others, including what you did and the result.
+            Please describe one situation where you influenced or motivated others, using 3 short parts below.
           </div>
-          <textarea
-            id="leadershipExample"
-            name="leadershipExample"
-            required
-            placeholder="Describe the situation, what you did, and the result."
-          ></textarea>
+          <div class="field">
+            <label class="field-label" for="sbiSituation">
+              Situation (S) <span class="required">*</span>
+            </label>
+            <textarea
+              id="sbiSituation"
+              name="sbiSituation"
+              minlength="20"
+              placeholder="What was happening? What was the context?"
+            ></textarea>
+            <div id="err-sbiSituation" class="field-error"></div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="sbiBehavior">
+              Behavior (B) <span class="required">*</span>
+            </label>
+            <textarea
+              id="sbiBehavior"
+              name="sbiBehavior"
+              minlength="20"
+              placeholder="What did you do? What specific actions did you take?"
+            ></textarea>
+            <div id="err-sbiBehavior" class="field-error"></div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="sbiImpact">
+              Impact (I) <span class="required">*</span>
+            </label>
+            <textarea
+              id="sbiImpact"
+              name="sbiImpact"
+              minlength="20"
+              placeholder="What changed as a result? What was the outcome for others, the team, or the business?"
+            ></textarea>
+            <div id="err-sbiImpact" class="field-error"></div>
+          </div>
         </div>
       </section>
 
-      <hr style="border: none; border-bottom: 1px dashed #e5e7eb; margin: 18px 0" />
+      <hr class="soft" />
 
       <!-- SECTION 4 · CAREER ASPIRATION & MOBILITY -->
-      <section>
-        <h2 class="section-title">
-          <span class="section-badge">Section 4</span>
-          Career Aspiration & Mobility
-        </h2>
+      <section class="section-block">
+        <div class="section-header-row">
+          <h2 class="section-title">
+            <span class="section-badge">Section 4</span>
+            Career Aspiration & Mobility
+          </h2>
+          <div class="section-chip">⚡ Direction & flexibility</div>
+        </div>
 
         <div class="field">
           <label class="field-label" for="careerGoals">
@@ -689,10 +951,10 @@
           <textarea
             id="careerGoals"
             name="careerGoals"
-            required
             minlength="30"
             placeholder="Share the main directions you want to grow towards in the next 1–3 years."
           ></textarea>
+          <div id="err-careerGoals" class="field-error"></div>
         </div>
 
         <div class="field">
@@ -703,10 +965,10 @@
           <textarea
             id="motivation"
             name="motivation"
-            required
             minlength="30"
             placeholder="Explain your motivation for joining the successor/Talent Uplift pool and being considered for the selected role(s)."
           ></textarea>
+          <div id="err-motivation" class="field-error"></div>
         </div>
 
         <div class="field">
@@ -715,15 +977,19 @@
           </label>
           <div class="radio-row">
             <label class="radio-item">
-              <input type="radio" name="changeDept" value="yes" />Yes
+              <input type="radio" name="changeDept" value="yes" />
+              Yes
             </label>
             <label class="radio-item">
-              <input type="radio" name="changeDept" value="maybe" />Maybe / Depends on role
+              <input type="radio" name="changeDept" value="maybe" />
+              Maybe / Depends on role
             </label>
             <label class="radio-item">
-              <input type="radio" name="changeDept" value="no" />No
+              <input type="radio" name="changeDept" value="no" />
+              No
             </label>
           </div>
+          <div id="err-changeDept" class="field-error"></div>
         </div>
 
         <div class="field">
@@ -767,17 +1033,21 @@
               Not willing to relocate
             </label>
           </div>
+          <div id="err-relocateOptions" class="field-error"></div>
         </div>
       </section>
 
-      <hr style="border: none; border-bottom: 1px dashed #e5e7eb; margin: 18px 0" />
+      <hr class="soft" />
 
       <!-- SECTION 5 · OPTIONAL SELF-LEADERSHIP -->
-      <section>
-        <h2 class="section-title">
-          <span class="section-badge">Section 5</span>
-          Optional – Self-leadership Reflection
-        </h2>
+      <section class="section-block">
+        <div class="section-header-row">
+          <h2 class="section-title">
+            <span class="section-badge">Section 5</span>
+            Optional – Self-leadership Reflection
+          </h2>
+          <div class="section-chip">🌱 Ownership of growth</div>
+        </div>
         <p class="section-desc">
           You may share an example where you took ownership of your own
           learning, performance, or development (optional but helpful).
@@ -795,14 +1065,17 @@
         </div>
       </section>
 
-      <hr style="border: none; border-bottom: 1px dashed #e5e7eb; margin: 18px 0" />
+      <hr class="soft" />
 
       <!-- SECTION 6 · CONSENT -->
-      <section>
-        <h2 class="section-title">
-          <span class="section-badge">Section 6</span>
-          Program Understanding & Consent
-        </h2>
+      <section class="section-block">
+        <div class="section-header-row">
+          <h2 class="section-title">
+            <span class="section-badge">Section 6</span>
+            Program Understanding & Consent
+          </h2>
+          <div class="section-chip">✅ Confirmation</div>
+        </div>
 
         <div class="field">
           <div class="consent-line">
@@ -839,6 +1112,7 @@
               to the best of my knowledge.
             </label>
           </div>
+          <div id="err-consents" class="field-error"></div>
         </div>
       </section>
 
@@ -852,194 +1126,196 @@
           <span>Submit Application</span>
         </button>
       </div>
-
-      <div id="successMessage" class="success-msg hidden">
-        ✅ Your application passed validation. A candidate profile has been generated below.
-        If you need to adjust anything, please update the form above and submit again before downloading.
-      </div>
     </form>
 
-    <!-- ========== CANDIDATE PROFILE PREVIEW ========== -->
-    <div id="profileWrapper" class="card hidden">
-      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:6px;">
-        <div style="font-weight:600;font-size:14px;color:#111827;">
-          Candidate Profile – Preview
-        </div>
-        <div class="editable-hint">
-          This summary reflects your latest form answers. To change wording, go back to the form above and resubmit.
-        </div>
-      </div>
-
-      <!-- Card sẽ được xuất PDF -->
-      <div id="candidateProfileCard">
-
-        <!-- Ashley orange header -->
-        <div style="display:flex;justify-content:space-between;align-items:center;background:#f97316;color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:16px;">
-          <div>
-            <!-- Bạn có thể thay bằng <img> logo thực tế -->
-            <div style="font-weight:700;font-size:14px;">
-              Ashley Logo
-              <span style="font-weight:600;margin-left:8px;">TALENT UPLIFT / SUCCESSOR POOL 2025</span>
-            </div>
-            <div style="font-size:12px;margin-top:2px;">
-              Candidate: <span id="hdr-name">—</span>
-            </div>
-          </div>
-          <div style="text-align:right;font-size:11px;">
-            <div style="padding:3px 10px;border-radius:999px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.4);margin-bottom:4px;">
-              Stage 2 – Candidate Application
-            </div>
-            <div>ID: <span id="hdr-empid">—</span></div>
-          </div>
+    <!-- ========== PROFILE MODAL ========== -->
+    <div id="profileModal" class="modal">
+      <div class="modal-backdrop"></div>
+      <div class="modal-dialog">
+        <div class="modal-header-row">
+          <div class="modal-title">Candidate Profile – Preview</div>
+          <button type="button" id="closeModalBtn" class="modal-close" aria-label="Close">
+            ×
+          </button>
         </div>
 
-        <!-- ===== ROW 1: Basic Info | Role-Specific Questions ===== -->
-        <div class="profile-row profile-section">
-          <!-- Basic Info -->
-          <div class="profile-col">
-            <div class="h-full border rounded-lg p-4">
-              <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
-                <span>👤</span>
-                <h4 style="margin:0;font-weight:600;color:#111827;">Basic Info</h4>
+        <!-- PDF CONTENT -->
+        <div id="pdfWrapper">
+          <div class="pdf-header-bar">
+            <div class="pdf-header-left">
+              <div class="pdf-logo-box">Ashley</div>
+              <div>
+                <div style="font-weight:700;font-size:13px;">
+                  TALENT UPLIFT / SUCCESSOR POOL 2025
+                </div>
+                <div style="font-size:11px;opacity:0.9;">
+                  Candidate Profile Summary
+                </div>
               </div>
-              <dl style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;font-size:13px;">
-                <div>
-                  <dt style="color:#6b7280;">Full name</dt>
-                  <dd id="bi-name" style="margin:0;color:#111827;font-weight:500;">—</dd>
-                </div>
-                <div>
-                  <dt style="color:#6b7280;">Department</dt>
-                  <dd id="bi-dept" style="margin:0;color:#111827;font-weight:500;">—</dd>
-                </div>
-                <div style="grid-column:1 / -1;">
-                  <dt style="color:#6b7280;">Current role</dt>
-                  <dd id="bi-role" style="margin:0;color:#111827;font-weight:500;">—</dd>
-                </div>
-              </dl>
+            </div>
+            <div class="pdf-header-right">
+              <div class="pdf-tag">Stage 2 – Candidate Application</div>
+              <div class="pdf-id" id="pdfEmployeeId">ID: —</div>
             </div>
           </div>
 
-          <!-- Role-Specific Questions -->
-          <div class="profile-col">
-            <div class="h-full border rounded-lg p-4">
-              <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
-                <span>🧭</span>
-                <h4 style="margin:0;font-weight:600;color:#111827;">Role-Specific Questions (Managerial)</h4>
-              </div>
-              <p style="font-size:13px;color:#111827;margin:0;">
-                <span style="font-weight:600;">Leadership Style &amp; Team Motivation:</span>
-                <span id="mgrAnswers">
-                  Describe how you lead and inspire others to achieve shared goals. Explain how you communicate direction, build trust, and maintain motivation and accountability within your team.
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- ===== ROW 2: Preferences | Mobility ===== -->
-        <div class="profile-row profile-section">
-          <!-- Preferences -->
-          <div class="profile-col" style="position:relative;">
-            <div class="h-full border rounded-lg p-4">
-              <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
-                <span>🗂️</span>
-                <h4 style="margin:0;font-weight:600;color:#111827;">Succession Preferences</h4>
-              </div>
-              <p style="font-size:11px;color:#4b5563;margin:0 0 8px;">
-                You may list one or two preferences. If two, at least one must be in your current department.
-              </p>
-              <div id="onePrefBadge" style="display:none;position:absolute;top:10px;right:18px;font-size:11px;border-radius:999px;padding:2px 6px;border:1px solid #bfdbfe;background:#dbeafe;color:#1d4ed8;">
-                Only 1 preference provided
-              </div>
-
-              <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;">
-                <div style="border-radius:8px;border:1px solid #bfdbfe;background:#eff6ff;padding:8px 10px;">
-                  <div style="font-size:11px;color:#1d4ed8;margin-bottom:4px;font-weight:600;">1st Preference</div>
-                  <div id="pref1" style="font-size:13px;color:#111827;font-weight:500;">—</div>
+          <div id="candidateProfileCard">
+            <!-- ROW 1 -->
+            <div class="profile-row">
+              <div class="profile-col">
+                <div class="box">
+                  <div class="box-header">
+                    <span class="icon">👤</span>
+                    <span>Basic Info</span>
+                  </div>
+                  <dl class="dl-grid">
+                    <div>
+                      <dt>Full name</dt>
+                      <dd id="bi-name">—</dd>
+                    </div>
+                    <div>
+                      <dt>Department</dt>
+                      <dd id="bi-dept">—</dd>
+                    </div>
+                    <div style="grid-column:1 / -1;">
+                      <dt>Current role</dt>
+                      <dd id="bi-role">—</dd>
+                    </div>
+                  </dl>
                 </div>
-                <div style="border-radius:8px;border:1px solid #bfdbfe;background:#eff6ff;padding:8px 10px;position:relative;">
-                  <div style="font-size:11px;color:#1d4ed8;margin-bottom:4px;font-weight:600;">2nd Preference</div>
-                  <div id="pref2" style="font-size:13px;color:#111827;font-weight:500;">—</div>
-                  <div id="crossNotice" style="display:none;position:absolute;top:4px;right:4px;font-size:10px;border-radius:999px;padding:2px 6px;background:#fef9c3;color:#a16207;">
-                    Cross-Dept
+              </div>
+
+              <div class="profile-col">
+                <div class="box">
+                  <div class="box-header">
+                    <span class="icon">🧭</span>
+                    <span>Role-Specific – Leadership</span>
+                  </div>
+                  <div class="box-subtitle">
+                    How the candidate plans to lead and an example using SBI.
+                  </div>
+                  <div id="profile-leadershipStyle" style="font-size:12px;margin-bottom:6px;">
+                    —
+                  </div>
+                  <dl class="profile-sbi">
+                    <div>
+                      <dt>Situation (S)</dt>
+                      <dd id="profile-sbiS">—</dd>
+                    </div>
+                    <div>
+                      <dt>Behavior (B)</dt>
+                      <dd id="profile-sbiB">—</dd>
+                    </div>
+                    <div>
+                      <dt>Impact (I)</dt>
+                      <dd id="profile-sbiI">—</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </div>
+
+            <!-- ROW 2 -->
+            <div class="profile-row">
+              <div class="profile-col">
+                <div class="box">
+                  <div class="box-header">
+                    <span class="icon">🗂️</span>
+                    <span>Succession Preferences</span>
+                  </div>
+                  <div class="box-subtitle">
+                    At least one preference should be in the current department.
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;">
+                    <div>
+                      <div class="pill-small pill-blue" style="margin-bottom:3px;">1st Preference</div>
+                      <div id="pref1">—</div>
+                    </div>
+                    <div>
+                      <div class="pill-small pill-blue" style="margin-bottom:3px;">2nd Preference</div>
+                      <div id="pref2">—</div>
+                      <div id="crossNotice" class="pill-small pill-yellow" style="margin-top:4px;display:none;">
+                        Cross-dept
+                      </div>
+                    </div>
+                  </div>
+                  <div style="margin-top:6px;font-size:11px;">
+                    <strong>Reason (1st):</strong>
+                    <span id="rs1">—</span>
+                  </div>
+                  <div style="margin-top:3px;font-size:11px;">
+                    <strong>Reason (2nd):</strong>
+                    <span id="rs2">—</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="profile-col">
+                <div class="box">
+                  <div class="box-header">
+                    <span class="icon">🚚</span>
+                    <span>Mobility & Availability</span>
+                  </div>
+                  <dl class="dl-grid">
+                    <div>
+                      <dt>Willing to relocate?</dt>
+                      <dd id="mob-relocate">—</dd>
+                    </div>
+                    <div>
+                      <dt>Open to change dept?</dt>
+                      <dd id="mob-change">—</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </div>
+
+            <!-- ROW 3 -->
+            <div class="profile-row">
+              <div class="profile-col">
+                <div class="box">
+                  <div class="box-header">
+                    <span class="icon">⚡</span>
+                    <span>Career Aspiration & Motivation</span>
+                  </div>
+                  <div class="box-subtitle">
+                    Short- to mid-term direction and why the roles matter.
+                  </div>
+                  <div style="font-size:12px;margin-bottom:4px;">
+                    <strong>Career goals (1–3 years):</strong>
+                    <div id="asp-short">—</div>
+                  </div>
+                  <div style="font-size:12px;">
+                    <strong>Motivation for these roles:</strong>
+                    <div id="asp-mid">—</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="profile-col">
+                <div class="box">
+                  <div class="box-header">
+                    <span class="icon">🌱</span>
+                    <span>Optional – Self-leadership</span>
+                  </div>
+                  <div id="profile-selfLeadership" style="font-size:12px;">
+                    —
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- Mobility -->
-          <div class="profile-col">
-            <div class="h-full border rounded-lg p-4">
-              <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
-                <span>🚚</span>
-                <h4 style="margin:0;font-weight:600;color:#111827;">Mobility &amp; Availability</h4>
-              </div>
-              <dl style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;font-size:13px;">
-                <div>
-                  <dt style="color:#6b7280;">Willing to relocate?</dt>
-                  <dd id="mob-relocate" style="margin:0;color:#111827;font-weight:500;">—</dd>
-                </div>
-                <div>
-                  <dt style="color:#6b7280;">Open to change dept?</dt>
-                  <dd id="mob-change" style="margin:0;color:#111827;font-weight:500;">—</dd>
-                </div>
-              </dl>
-            </div>
-          </div>
         </div>
 
-        <!-- ===== ROW 3: Reason | Aspiration ===== -->
-        <div class="profile-row profile-section">
-          <div class="profile-col">
-            <div class="h-full border rounded-lg p-4">
-              <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
-                <span>❓</span>
-                <h4 style="margin:0;font-weight:600;color:#111827;">Reason for Each Preference</h4>
-              </div>
-              <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;font-size:13px;">
-                <div>
-                  <div style="font-size:11px;color:#6b7280;margin-bottom:4px;">Reason (1st)</div>
-                  <p id="rs1" style="margin:0;color:#111827;">—</p>
-                </div>
-                <div>
-                  <div style="font-size:11px;color:#6b7280;margin-bottom:4px;">Reason (2nd)</div>
-                  <p id="rs2" style="margin:0;color:#111827;">—</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="profile-col">
-            <div class="h-full border rounded-lg p-4">
-              <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
-                <span>⚡</span>
-                <h4 style="margin:0;font-weight:600;color:#111827;">Career Aspiration &amp; Motivation</h4>
-              </div>
-              <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;font-size:13px;">
-                <div>
-                  <div style="font-size:11px;color:#6b7280;margin-bottom:4px;">Short-term (1 year)</div>
-                  <p id="asp-short" style="margin:0;color:#111827;">—</p>
-                </div>
-                <div>
-                  <div style="font-size:11px;color:#6b7280;margin-bottom:4px;">Mid-term (2–3 years)</div>
-                  <p id="asp-mid" style="margin:0;color:#111827;">—</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <!-- Buttons under modal -->
+        <div class="btn-row" style="margin-top:14px;">
+          <button type="button" class="btn btn-secondary" id="backToFormBtn">
+            ⬅ Back to form
+          </button>
+          <button type="button" class="btn btn-primary" id="finalSubmitBtn">
+            ✅ Confirm & Download JSON + PDF
+          </button>
         </div>
-
-      </div>
-
-      <!-- Buttons for profile stage -->
-      <div class="btn-row" style="margin-top:16px;">
-        <button type="button" class="btn btn-secondary" id="backToFormBtn">
-          ⬅ Back to form
-        </button>
-        <button type="button" class="btn btn-primary" id="finalSubmitBtn">
-          ✅ Confirm &amp; Download JSON + PDF
-        </button>
       </div>
     </div>
 
@@ -1083,6 +1359,7 @@
       "Others"
     ];
 
+    // All roles treated as managerial in this version
     const targetRoles = [
       // Asia Human Resources
       {
@@ -1244,7 +1521,7 @@
       rolesMap[r.id] = r;
     });
 
-    let lastPayload = null; // lưu payload sau form submit
+    let lastPayload = null; // lưu payload sau form submit đã pass
 
     // ===============================
     // DOM HELPERS
@@ -1322,7 +1599,7 @@
     }
 
     // ===============================
-    // DYNAMIC VISIBILITY & REQUIREMENTS
+    // DYNAMIC VISIBILITY
     // ===============================
 
     function updateRoleDependentUI() {
@@ -1335,8 +1612,7 @@
       setDeptLabel("pref2DeptLabel", pref2Role);
 
       // Preference 2 reason required only if Pref2 selected
-      const pref2Reason = $("pref2Reason");
-      pref2Reason.required = !!pref2Role;
+      $("pref2Reason").required = !!pref2Role;
 
       // Cross-dept block logic
       let anyCrossDept = false;
@@ -1348,19 +1624,37 @@
       }
 
       const crossBlock = $("crossDeptBlock");
-      const crossText = $("crossJustification");
       if (anyCrossDept) {
-        crossBlock.classList.remove("hidden");
-        crossText.required = true;
+        crossBlock.style.display = "block";
       } else {
-        crossBlock.classList.add("hidden");
-        crossText.required = false;
+        crossBlock.style.display = "none";
       }
+    }
+
+    // ===============================
+    // ERROR HANDLING
+    // ===============================
+
+    function clearAllErrors() {
+      document.querySelectorAll(".field-error").forEach((el) => {
+        el.textContent = "";
+      });
+      document
+        .querySelectorAll(".has-error")
+        .forEach((el) => el.classList.remove("has-error"));
+    }
+
+    function setError(fieldId, message) {
+      const field = $(fieldId);
+      const errEl = $("err-" + fieldId) || (field && field.nextElementSibling);
+      if (errEl) errEl.textContent = message;
+      if (field) field.classList.add("has-error");
     }
 
     // ===============================
     // LOAD SAMPLE DATA BUTTON
     // ===============================
+
     function loadSampleData() {
       // Reset dropdown options
       $("currentDept").innerHTML =
@@ -1370,9 +1664,11 @@
       $("pref2Role").innerHTML =
         '<option value="">-- No secondary preference --</option>';
 
-      // Load options
+      // Reload options
       initDepartments();
       initRoles();
+
+      clearAllErrors();
 
       // ===== BASIC INFO =====
       $("fullName").value = "Nguyen Van A";
@@ -1393,15 +1689,19 @@
       $("crossJustification").value =
         "My current role in Engineering already requires frequent collaboration with Strategy Execution on project timelines, risk tracking and improvement initiatives, so I have relevant exposure and interest in this area.";
 
-      // ===== ROLE-SPECIFIC (MANAGERIAL) =====
+      // ===== ROLE-SPECIFIC =====
       $("leadershipStyle").value =
         "I try to lead with clarity, trust and support. I focus on setting clear expectations, giving regular feedback, and creating space for team members to share ideas and take ownership of their tasks.";
-      $("leadershipExample").value =
-        "Recently, our project team faced delays due to conflicting priorities. I organised a short alignment session, clarified the key milestones, reassigned some tasks based on strengths, and followed up weekly. As a result, we caught up on the timeline and the team reported higher clarity and confidence.";
+      $("sbiSituation").value =
+        "Our project team was facing delays due to conflicting priorities and unclear handover between functions.";
+      $("sbiBehavior").value =
+        "I organised a short alignment session, clarified milestones, reassigned some tasks based on strengths, and set up weekly check-ins to track risk and support team members.";
+      $("sbiImpact").value =
+        "The team caught up on the timeline, reported higher clarity and confidence, and stakeholders recognised the team for the improved coordination.";
 
       // ===== CAREER & MOTIVATION =====
       $("careerGoals").value =
-        "In the next 1–3 years, I want to become strong in project management, stakeholder communication and cross-functional coordination so that I can take on larger regional projects and lead teams effectively.";
+        "In the next 1–3 years, I want to strengthen my project management capability, cross-functional collaboration and leadership skills so that I can handle larger regional projects and lead a small team.";
       $("motivation").value =
         "I want to be considered for these roles because I believe I can contribute more by coordinating people, processes and data, not only by doing individual engineering tasks. I am committed to long-term development with Ashley and ready to invest effort to grow into these roles.";
 
@@ -1432,7 +1732,7 @@
       $("consentSharing").checked = true;
       $("consentAccuracy").checked = true;
 
-      // Cập nhật lại logic hiển thị (cross-dept)
+      // Update dynamic UI
       updateRoleDependentUI();
 
       alert(
@@ -1445,7 +1745,8 @@
     // ===============================
 
     function validateForm() {
-      const errors = [];
+      clearAllErrors();
+      let hasError = false;
 
       const fullName = $("fullName").value.trim();
       const employeeId = $("employeeId").value.trim();
@@ -1453,38 +1754,60 @@
       const currentDept = $("currentDept").value;
       const currentRole = $("currentRole").value.trim();
 
-      if (!fullName) errors.push("Please enter your Full Name.");
-      if (!employeeId) errors.push("Please enter your Employee ID.");
-      if (!workEmail) errors.push("Please enter your Work Email.");
-      if (!currentDept)
-        errors.push("Please select your current Department.");
-      if (!currentRole)
-        errors.push("Please enter your Current Role / Position.");
+      if (!fullName) {
+        setError("fullName", "Please enter your Full Name.");
+        hasError = true;
+      }
+      if (!employeeId) {
+        setError("employeeId", "Please enter your Employee ID.");
+        hasError = true;
+      }
+      if (!workEmail) {
+        setError("workEmail", "Please enter your Work Email.");
+        hasError = true;
+      }
+      if (!currentDept) {
+        setError("currentDept", "Please select your current Department.");
+        hasError = true;
+      }
+      if (!currentRole) {
+        setError("currentRole", "Please enter your Current Role / Position.");
+        hasError = true;
+      }
 
       const pref1Role = getSelectedRole("pref1Role");
       const pref2Role = getSelectedRole("pref2Role");
 
       if (!pref1Role) {
-        errors.push("Please select your Preference 1 role.");
+        setError("pref1Role", "Please select your Preference 1 role.");
+        hasError = true;
       }
 
       const pref1Reason = $("pref1Reason").value.trim();
       if (!pref1Reason || pref1Reason.length < 30) {
-        errors.push(
+        setError(
+          "pref1Reason",
           "Please provide a meaningful reason for Preference 1 (at least 2–3 lines)."
         );
+        hasError = true;
       }
 
       const pref2Reason = $("pref2Reason").value.trim();
       if (pref2Role && (!pref2Reason || pref2Reason.length < 30)) {
-        errors.push(
+        setError(
+          "pref2Reason",
           "Please provide a meaningful reason for Preference 2 (at least 2–3 lines)."
         );
+        hasError = true;
       }
 
       // Preference 2 must be different
       if (pref1Role && pref2Role && pref1Role.id === pref2Role.id) {
-        errors.push("Preference 2 must be different from Preference 1.");
+        setError(
+          "pref2Role",
+          "Preference 2 must be different from Preference 1."
+        );
+        hasError = true;
       }
 
       // At least 1 preference must be within current department
@@ -1493,22 +1816,65 @@
         const pref2InDept =
           pref2Role && pref2Role.dept === currentDept;
         if (!pref1InDept && !pref2InDept) {
-          errors.push(
+          setError(
+            "pref1Role",
             "At least one of your preferences must be within your current department."
           );
+          setError(
+            "pref2Role",
+            "At least one of your preferences must be within your current department."
+          );
+          hasError = true;
         }
       }
 
       // Cross-dept justification if needed
       const crossBlockVisible =
-        !$("crossDeptBlock").classList.contains("hidden");
+        $("crossDeptBlock").style.display !== "none";
       if (crossBlockVisible) {
         const crossText = $("crossJustification").value.trim();
         if (!crossText || crossText.length < 20) {
-          errors.push(
+          setError(
+            "crossJustification",
             "Please explain your reasoning for applying to a role in another department."
           );
+          hasError = true;
         }
+      }
+
+      // Leadership & SBI
+      const leadershipStyle = $("leadershipStyle").value.trim();
+      if (!leadershipStyle || leadershipStyle.length < 30) {
+        setError(
+          "leadershipStyle",
+          "Please describe your future leadership style (at least a few lines)."
+        );
+        hasError = true;
+      }
+
+      const s = $("sbiSituation").value.trim();
+      const b = $("sbiBehavior").value.trim();
+      const i = $("sbiImpact").value.trim();
+      if (!s || s.length < 20) {
+        setError(
+          "sbiSituation",
+          "Please describe the situation (at least a few lines)."
+        );
+        hasError = true;
+      }
+      if (!b || b.length < 20) {
+        setError(
+          "sbiBehavior",
+          "Please describe your actions (Behavior) in this example."
+        );
+        hasError = true;
+      }
+      if (!i || i.length < 20) {
+        setError(
+          "sbiImpact",
+          "Please describe the impact and result of your actions."
+        );
+        hasError = true;
       }
 
       // Career & motivation
@@ -1516,74 +1882,57 @@
       const motivation = $("motivation").value.trim();
 
       if (!careerGoals || careerGoals.length < 30) {
-        errors.push(
+        setError(
+          "careerGoals",
           "Please describe your short- to mid-term career goals (at least a few lines)."
         );
+        hasError = true;
       }
       if (!motivation || motivation.length < 30) {
-        errors.push(
+        setError(
+          "motivation",
           "Please explain why you want to be considered for these role(s) (at least a few lines)."
         );
-      }
-
-      // Managerial leadership questions
-      if (!$("leadershipStyle").value.trim()) {
-        errors.push("Please describe your future leadership style.");
-      }
-      if (!$("leadershipExample").value.trim()) {
-        errors.push(
-          "Please provide an example of how you influenced or motivated others."
-        );
+        hasError = true;
       }
 
       // Mobility
       const changeDept = getRadioValue("changeDept");
       if (!changeDept) {
-        errors.push("Please indicate your willingness to change department.");
+        $("err-changeDept").textContent =
+          "Please indicate your willingness to change department.";
+        hasError = true;
       }
 
       const relocateSelections = getRelocateSelections();
       if (relocateSelections.length === 0) {
-        errors.push(
-          "Please select at least one option for your willingness to relocate."
-        );
+        $("err-relocateOptions").textContent =
+          "Please select at least one option for your willingness to relocate.";
+        hasError = true;
       }
 
       // Consents
+      let consErr = "";
       if (!$("consentDevelopment").checked) {
-        errors.push(
-          "Please confirm your understanding about development vs promotion."
-        );
+        consErr =
+          "Please confirm your understanding about development vs promotion.";
       }
       if (!$("consentSharing").checked) {
-        errors.push(
-          "Please confirm your understanding that your application may be shared with relevant stakeholders."
-        );
+        consErr =
+          (consErr ? consErr + " " : "") +
+          "Please confirm your understanding that your application may be shared with relevant stakeholders.";
       }
       if (!$("consentAccuracy").checked) {
-        errors.push(
-          "Please confirm that your information is accurate to the best of your knowledge."
-        );
+        consErr =
+          (consErr ? consErr + " " : "") +
+          "Please confirm that your information is accurate to the best of your knowledge.";
+      }
+      if (consErr) {
+        $("err-consents").textContent = consErr;
+        hasError = true;
       }
 
-      return errors;
-    }
-
-    function showErrors(errors) {
-      const box = $("errorContainer");
-      if (!errors || errors.length === 0) {
-        box.classList.add("hidden");
-        box.innerHTML = "";
-        return;
-      }
-      box.classList.remove("hidden");
-      let html =
-        "<strong>There are some issues with your form:</strong><ul>";
-      errors.forEach((e) => {
-        html += "<li>" + e + "</li>";
-      });
-      html += "</ul>";
-      box.innerHTML = html;
+      return !hasError;
     }
 
     // ===============================
@@ -1628,8 +1977,10 @@
             $("crossJustification").value.trim() || null
         },
         roleSpecific: {
-          leadershipStyle: $("leadershipStyle").value.trim() || null,
-          leadershipExample: $("leadershipExample").value.trim() || null
+          leadershipStyle: $("leadershipStyle").value.trim(),
+          sbiSituation: $("sbiSituation").value.trim(),
+          sbiBehavior: $("sbiBehavior").value.trim(),
+          sbiImpact: $("sbiImpact").value.trim()
         },
         careerAndMobility: {
           careerGoals: $("careerGoals").value.trim(),
@@ -1677,9 +2028,9 @@
     }
 
     function fillProfileCard(payload) {
-      // Header
-      $("hdr-name").innerText = payload.candidate.fullName || "—";
-      $("hdr-empid").innerText = payload.candidate.employeeId || "—";
+      // header ID
+      $("pdfEmployeeId").textContent =
+        "ID: " + (payload.candidate.employeeId || "—");
 
       // Basic info
       $("bi-name").innerText = payload.candidate.fullName || "—";
@@ -1691,28 +2042,21 @@
       const p2 = payload.preferences.preference2;
 
       if (p1) {
-        $("pref1").innerText =
-          p1.roleTitle + " (" + p1.department + ", Managerial)";
+        $("pref1").innerText = p1.roleTitle + " (" + p1.department + ")";
       } else {
         $("pref1").innerText = "—";
       }
 
       if (p2) {
-        $("pref2").innerText =
-          p2.roleTitle + " (" + p2.department + ", Managerial)";
+        $("pref2").innerText = p2.roleTitle + " (" + p2.department + ")";
       } else {
         $("pref2").innerText = "—";
       }
 
-      if (p1 && !p2) {
-        $("onePrefBadge").style.display = "inline-flex";
-      } else {
-        $("onePrefBadge").style.display = "none";
-      }
-
+      // Cross-dept badge for 2nd preference
       const currentDept = payload.candidate.currentDept;
       if (p2 && currentDept && p2.department !== currentDept) {
-        $("crossNotice").style.display = "inline-flex";
+        $("crossNotice").style.display = "inline-block";
       } else {
         $("crossNotice").style.display = "none";
       }
@@ -1729,23 +2073,25 @@
         payload.careerAndMobility.willingChangeDept
       );
 
-      // Aspiration: map careerGoals + motivation
+      // Aspiration
       $("asp-short").innerText =
         payload.careerAndMobility.careerGoals || "—";
       $("asp-mid").innerText =
         payload.careerAndMobility.motivation || "—";
 
-      // Role-specific (managerial only)
-      const mgrTextParts = [];
-      if (payload.roleSpecific.leadershipStyle) {
-        mgrTextParts.push(payload.roleSpecific.leadershipStyle);
-      }
-      if (payload.roleSpecific.leadershipExample) {
-        mgrTextParts.push(payload.roleSpecific.leadershipExample);
-      }
-      $("mgrAnswers").innerText =
-        mgrTextParts.join(" ") ||
-        "Describe how you lead and inspire others to achieve shared goals.";
+      // Leadership & SBI
+      $("profile-leadershipStyle").innerText =
+        payload.roleSpecific.leadershipStyle || "—";
+      $("profile-sbiS").innerText =
+        payload.roleSpecific.sbiSituation || "—";
+      $("profile-sbiB").innerText =
+        payload.roleSpecific.sbiBehavior || "—";
+      $("profile-sbiI").innerText =
+        payload.roleSpecific.sbiImpact || "—";
+
+      // Optional self-leadership
+      $("profile-selfLeadership").innerText =
+        payload.careerAndMobility.selfLeadershipExample || "—";
     }
 
     // ===============================
@@ -1772,29 +2118,22 @@
     }
 
     function downloadProfilePdf(payload) {
-      const element = $("candidateProfileCard");
-      const rect = element.getBoundingClientRect();
-      const width = rect.width;
-      const height = element.scrollHeight;
-
+      const element = $("pdfWrapper");
       const employeeId =
         (payload.candidate.employeeId || "candidate")
           .replace(/[^a-zA-Z0-9_-]/g, "_");
 
       const opt = {
-        margin: 0,
+        margin: [10, 10, 10, 10],
         filename: "candidate_profile_" + employeeId + ".pdf",
         image: { type: "jpeg", quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true },
-        jsPDF: {
-          unit: "px",
-          format: [width, height],
-          orientation: height >= width ? "portrait" : "landscape"
-        },
-        pagebreak: { mode: ["css"] }
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        pagebreak: { mode: ["css", "legacy"] }
       };
 
-      html2pdf().from(element).set(opt).save();
+      // Ensure modal (and pdfWrapper) are visible
+      html2pdf().set(opt).from(element).save();
     }
 
     // ===============================
@@ -1804,67 +2143,90 @@
     document.addEventListener("DOMContentLoaded", function () {
       initDepartments();
       initRoles();
+      updateRoleDependentUI();
 
-      $("currentDept").addEventListener(
-        "change",
-        updateRoleDependentUI
-      );
-      $("pref1Role").addEventListener(
-        "change",
-        updateRoleDependentUI
-      );
-      $("pref2Role").addEventListener(
-        "change",
-        updateRoleDependentUI
-      );
+      // change/blur listeners to update UI & inline validation
+      $("currentDept").addEventListener("change", function () {
+        updateRoleDependentUI();
+        validateForm();
+      });
+      $("pref1Role").addEventListener("change", function () {
+        updateRoleDependentUI();
+        validateForm();
+      });
+      $("pref2Role").addEventListener("change", function () {
+        updateRoleDependentUI();
+        validateForm();
+      });
 
-      // Enable sample loader
+      const validateOnBlurIds = [
+        "fullName",
+        "employeeId",
+        "workEmail",
+        "currentRole",
+        "pref1Reason",
+        "pref2Reason",
+        "crossJustification",
+        "leadershipStyle",
+        "sbiSituation",
+        "sbiBehavior",
+        "sbiImpact",
+        "careerGoals",
+        "motivation"
+      ];
+      validateOnBlurIds.forEach((id) => {
+        const el = $(id);
+        if (el) {
+          el.addEventListener("blur", () => {
+            validateForm();
+          });
+        }
+      });
+
+      // Sample loader
       $("loadSampleBtn").addEventListener("click", function () {
         loadSampleData();
       });
 
+      // Form submit
       $("applicationForm").addEventListener("submit", function (e) {
         e.preventDefault();
-        const errors = validateForm();
-        showErrors(errors);
+        const valid = validateForm();
 
-        if (errors.length === 0) {
+        if (valid) {
           const payload = buildPayloadFromForm();
           lastPayload = payload;
 
-          // show JSON preview (dev)
           showJsonPreview(payload);
-
-          // fill and show profile
           fillProfileCard(payload);
-          $("profileWrapper").classList.remove("hidden");
-          $("successMessage").classList.remove("hidden");
 
-          // scroll down to profile
-          $("profileWrapper").scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
+          $("successMessage").style.display = "block";
+
+          // open modal
+          $("profileModal").classList.add("show");
         } else {
-          $("successMessage").classList.add("hidden");
-          $("profileWrapper").classList.add("hidden");
+          $("successMessage").style.display = "none";
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
       });
 
+      // Reset
       $("btnReset").addEventListener("click", function () {
-        showErrors([]);
+        clearAllErrors();
         $("jsonOutput").innerHTML =
           "<strong>Waiting for submission…</strong>";
-        $("successMessage").classList.add("hidden");
-        $("profileWrapper").classList.add("hidden");
+        $("successMessage").style.display = "none";
         lastPayload = null;
         setTimeout(updateRoleDependentUI, 10);
       });
 
+      // Modal controls
+      $("closeModalBtn").addEventListener("click", function () {
+        $("profileModal").classList.remove("show");
+      });
+
       $("backToFormBtn").addEventListener("click", function () {
-        $("profileWrapper").classList.add("hidden");
-        $("successMessage").classList.add("hidden");
+        $("profileModal").classList.remove("show");
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
 
@@ -1873,14 +2235,11 @@
           alert("Please submit the application form first.");
           return;
         }
-        const finalPayload = lastPayload; // JSON & PDF luôn bám theo form
+        const finalPayload = lastPayload; // luôn đồng nhất form – profile
         showJsonPreview(finalPayload);
         downloadJson(finalPayload);
         downloadProfilePdf(finalPayload);
       });
-
-      // Initial UI state
-      updateRoleDependentUI();
     });
   </script>
 </body>
