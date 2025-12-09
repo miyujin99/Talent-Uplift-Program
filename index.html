@@ -1195,8 +1195,7 @@
                     How the candidate plans to lead and an example using SBI.
                   </div>
                   <div id="profile-leadershipStyle" style="font-size:12px;margin-bottom:6px;">
-                    —
-                  </div>
+                    —</div>
                   <dl class="profile-sbi">
                     <div>
                       <dt>Situation (S)</dt>
@@ -1299,8 +1298,7 @@
                     <span>Optional – Self-leadership</span>
                   </div>
                   <div id="profile-selfLeadership" style="font-size:12px;">
-                    —
-                  </div>
+                    —</div>
                 </div>
               </div>
             </div>
@@ -2117,55 +2115,34 @@
       URL.revokeObjectURL(url);
     }
 
-		function downloadProfilePdf(payload) {
-		  const original = document.getElementById("pdfWrapper");
-		
-		  // Tạo bản clone để export (tránh export trực tiếp trong modal fixed)
-		  const cloneContainer = document.createElement("div");
-		  cloneContainer.style.background = "#ffffff";
-		  cloneContainer.style.padding = "10px";
-		  cloneContainer.style.margin = "0";
-		  cloneContainer.style.position = "static";
-		  cloneContainer.style.width = "800px";  // ~A4
-		  cloneContainer.style.maxWidth = "100%";
-		
-		  const clone = original.cloneNode(true);
-		  clone.id = "pdfWrapperExport";
-		  clone.style.boxShadow = "none";
-		  clone.style.border = "none";
-		  clone.style.margin = "0";
-		
-		  cloneContainer.appendChild(clone);
-		  document.body.appendChild(cloneContainer);
-		
-		  const employeeId =
-		    (payload.candidate.employeeId || "candidate").replace(/[^a-zA-Z0-9_-]/g, "_");
-		
-		  const opt = {
-		    margin: [10, 10, 10, 10],
-		    filename: "candidate_profile_" + employeeId + ".pdf",
-		    image: { type: "jpeg", quality: 0.98 },
-		    html2canvas: { scale: 2, useCORS: true },
-		    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-		    pagebreak: { mode: ["css", "legacy"] }
-		  };
-		
-		  // Đợi 1 tick cho browser layout xong rồi mới chụp
-		  setTimeout(() => {
-		    html2pdf()
-		      .set(opt)
-		      .from(cloneContainer)
-		      .save()
-		      .then(() => {
-		        document.body.removeChild(cloneContainer);
-		      })
-		      .catch(() => {
-		        document.body.removeChild(cloneContainer);
-		      });
-		  }, 0);
-		}
+    // 👉 bản mới: export trực tiếp từ #pdfWrapper
+    function downloadProfilePdf(payload) {
+      const employeeId =
+        (payload.candidate.employeeId || "candidate").replace(/[^a-zA-Z0-9_-]/g, "_");
 
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: "candidate_profile_" + employeeId + ".pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          scrollY: 0
+        },
+        jsPDF: {
+          unit: "mm",
+          format: "a4",
+          orientation: "portrait"
+        }
+      };
 
+      const element = document.getElementById("pdfWrapper");
+
+      html2pdf()
+        .set(opt)
+        .from(element)
+        .save();
+    }
 
     // ===============================
     // MAIN INIT
