@@ -539,6 +539,26 @@
       flex: 1 1 260px;
     }
 
+    .profile-col-full {
+      flex: 1 1 100%;
+    }
+
+    .dl-vertical {
+      display: block;
+      font-size: 12px;
+    }
+    .dl-vertical div {
+      margin-bottom: 4px;
+    }
+    .dl-vertical dt {
+      color: #6b7280;
+      font-weight: 600;
+    }
+    .dl-vertical dd {
+      margin: 0;
+      color: #111827;
+    }
+
     .box {
       border-radius: 8px;
       border: 1px solid #e5e7eb;
@@ -618,6 +638,41 @@
     .page-break {
       page-break-before: always;
     }
+		/* Basic Info – 3-column layout */
+	.dl-basic {
+	  display: grid;
+	  grid-template-columns: repeat(3, minmax(0, 1fr));
+	  gap: 6px 18px;
+	  font-size: 12px;
+	}
+	
+	.dl-basic .bi-item {
+	  min-width: 0;
+	}
+	
+	.dl-basic dt {
+	  font-size: 11px;
+	  font-weight: 700;
+	  color: #f97316; /* màu cam khác để nổi hơn */
+	  text-transform: uppercase;
+	  letter-spacing: 0.04em;
+	  margin-bottom: 2px;
+	}
+	
+	.dl-basic dd {
+	  margin: 0;
+	  font-size: 13px;
+	  font-weight: 600; /* đậm hơn các text khác */
+	  color: #111827;
+	}
+	
+	/* Mobile: xếp dọc lại cho dễ đọc */
+	@media (max-width: 768px) {
+	  .dl-basic {
+	    grid-template-columns: 1fr;
+	  }
+	}
+
   </style>
 </head>
 <body>
@@ -1160,31 +1215,86 @@
           </div>
 
           <div id="candidateProfileCard">
-            <!-- ROW 1 -->
+		<!-- ROW 1 · BASIC INFO (FULL WIDTH, 3 COLUMNS) -->
+		<div class="profile-row">
+		  <div class="profile-col-full">
+		    <div class="box">
+		      <div class="box-header">
+		        <span class="icon">👤</span>
+		        <span>Basic Info</span>
+		      </div>
+		      <dl class="dl-basic">
+		        <div class="bi-item">
+		          <dt>Full name</dt>
+		          <dd id="bi-name">—</dd>
+		        </div>
+		        <div class="bi-item">
+		          <dt>Department</dt>
+		          <dd id="bi-dept">—</dd>
+		        </div>
+		        <div class="bi-item">
+		          <dt>Current role</dt>
+		          <dd id="bi-role">—</dd>
+		        </div>
+		      </dl>
+		    </div>
+		  </div>
+		</div>
+
+
+            <!-- ROW 2 · SUCCESSION PREFERENCES (2 COLUMNS) -->
             <div class="profile-row">
+              <!-- LEFT: ROLES -->
               <div class="profile-col">
                 <div class="box">
                   <div class="box-header">
-                    <span class="icon">👤</span>
-                    <span>Basic Info</span>
+                    <span class="icon">🗂️</span>
+                    <span>Succession Preferences – Roles</span>
                   </div>
-                  <dl class="dl-grid">
+                  <div class="box-subtitle">
+                    At least one preference should be in the current department.
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;">
                     <div>
-                      <dt>Full name</dt>
-                      <dd id="bi-name">—</dd>
+                      <div class="pill-small pill-blue" style="margin-bottom:3px;">1st Preference</div>
+                      <div id="pref1">—</div>
                     </div>
                     <div>
-                      <dt>Department</dt>
-                      <dd id="bi-dept">—</dd>
+                      <div class="pill-small pill-blue" style="margin-bottom:3px;">2nd Preference</div>
+                      <div id="pref2">—</div>
+                      <div id="crossNotice" class="pill-small pill-yellow" style="margin-top:4px;display:none;">
+                        Cross-dept
+                      </div>
                     </div>
-                    <div style="grid-column:1 / -1;">
-                      <dt>Current role</dt>
-                      <dd id="bi-role">—</dd>
-                    </div>
-                  </dl>
+                  </div>
                 </div>
               </div>
 
+              <!-- RIGHT: REASONS -->
+              <div class="profile-col">
+                <div class="box">
+                  <div class="box-header">
+                    <span class="icon">🗂️</span>
+                    <span>Succession Preferences – Reasons</span>
+                  </div>
+                  <div class="box-subtitle">
+                    Brief summary of why the candidate chose these role(s).
+                  </div>
+                  <div style="font-size:12px;margin-bottom:6px;">
+                    <strong>Reason (1st Preference):</strong>
+                    <div id="rs1">—</div>
+                  </div>
+                  <div style="font-size:12px;">
+                    <strong>Reason (2nd Preference):</strong>
+                    <div id="rs2">—</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ROW 3 · LEADERSHIP & CAREER ASPIRATION -->
+            <div class="profile-row">
+              <!-- LEFT: LEADERSHIP -->
               <div class="profile-col">
                 <div class="box">
                   <div class="box-header">
@@ -1212,65 +1322,8 @@
                   </dl>
                 </div>
               </div>
-            </div>
 
-            <!-- ROW 2 -->
-            <div class="profile-row">
-              <div class="profile-col">
-                <div class="box">
-                  <div class="box-header">
-                    <span class="icon">🗂️</span>
-                    <span>Succession Preferences</span>
-                  </div>
-                  <div class="box-subtitle">
-                    At least one preference should be in the current department.
-                  </div>
-                  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;">
-                    <div>
-                      <div class="pill-small pill-blue" style="margin-bottom:3px;">1st Preference</div>
-                      <div id="pref1">—</div>
-                    </div>
-                    <div>
-                      <div class="pill-small pill-blue" style="margin-bottom:3px;">2nd Preference</div>
-                      <div id="pref2">—</div>
-                      <div id="crossNotice" class="pill-small pill-yellow" style="margin-top:4px;display:none;">
-                        Cross-dept
-                      </div>
-                    </div>
-                  </div>
-                  <div style="margin-top:6px;font-size:11px;">
-                    <strong>Reason (1st):</strong>
-                    <span id="rs1">—</span>
-                  </div>
-                  <div style="margin-top:3px;font-size:11px;">
-                    <strong>Reason (2nd):</strong>
-                    <span id="rs2">—</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="profile-col">
-                <div class="box">
-                  <div class="box-header">
-                    <span class="icon">🚚</span>
-                    <span>Mobility & Availability</span>
-                  </div>
-                  <dl class="dl-grid">
-                    <div>
-                      <dt>Willing to relocate?</dt>
-                      <dd id="mob-relocate">—</dd>
-                    </div>
-                    <div>
-                      <dt>Open to change dept?</dt>
-                      <dd id="mob-change">—</dd>
-                    </div>
-                  </dl>
-                </div>
-              </div>
-            </div>
-
-            <!-- ROW 3 -->
-            <div class="profile-row">
+              <!-- RIGHT: CAREER ASPIRATION & MOTIVATION -->
               <div class="profile-col">
                 <div class="box">
                   <div class="box-header">
@@ -1290,7 +1343,11 @@
                   </div>
                 </div>
               </div>
+            </div>
 
+            <!-- ROW 4 · SELF-LEADERSHIP & MOBILITY -->
+            <div class="profile-row">
+              <!-- LEFT: SELF-LEADERSHIP -->
               <div class="profile-col">
                 <div class="box">
                   <div class="box-header">
@@ -1299,6 +1356,26 @@
                   </div>
                   <div id="profile-selfLeadership" style="font-size:12px;">
                     —</div>
+                </div>
+              </div>
+
+              <!-- RIGHT: MOBILITY & AVAILABILITY -->
+              <div class="profile-col">
+                <div class="box">
+                  <div class="box-header">
+                    <span class="icon">🚚</span>
+                    <span>Mobility & Availability</span>
+                  </div>
+                  <dl class="dl-grid">
+                    <div>
+                      <dt>Willing to relocate?</dt>
+                      <dd id="mob-relocate">—</dd>
+                    </div>
+                    <div>
+                      <dt>Open to change dept?</dt>
+                      <dd id="mob-change">—</dd>
+                    </div>
+                  </dl>
                 </div>
               </div>
             </div>
@@ -2115,7 +2192,7 @@
       URL.revokeObjectURL(url);
     }
 
-    // 👉 bản mới: export trực tiếp từ #pdfWrapper
+    // export trực tiếp từ #pdfWrapper
     function downloadProfilePdf(payload) {
       const employeeId =
         (payload.candidate.employeeId || "candidate").replace(/[^a-zA-Z0-9_-]/g, "_");
