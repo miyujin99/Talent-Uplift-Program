@@ -519,13 +519,13 @@
       color: #b45309;
     }
 
-    .pdf-header-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 3px;
-      font-size: 11px;
-    }
+	.pdf-header-right {
+	  display: flex;
+	  align-items: center;      /* canh giữa theo chiều dọc */
+	  justify-content: flex-end;
+	  font-size: 11px;
+	}
+
 
     .pdf-tag {
       padding: 2px 8px;
@@ -533,11 +533,6 @@
       border: 1px solid rgba(254, 243, 199, 0.9);
       background: rgba(254, 243, 199, 0.18);
       font-weight: 600;
-    }
-
-    .pdf-id {
-      font-weight: 600;
-      opacity: 0.95;
     }
 
     #candidateProfileCard {
@@ -715,7 +710,6 @@
           </div>
         </div>
         <div class="tag">
-          <span class="tag-dot"></span>
           <span>Candidate Profile Builder</span>
         </div>
       </div>
@@ -1186,10 +1180,9 @@
                 </div>
               </div>
             </div>
-            <div class="pdf-header-right">
-              <div class="pdf-tag">Candidate Profile Builder</div>
-              <div class="pdf-id" id="pdfEmployeeId">ID: —</div>
-            </div>
+			<div class="pdf-header-right">
+			  <div class="pdf-tag" id="pdfTagEmployeeId">ID: —</div>
+			</div>
           </div>
 
           <div id="candidateProfileCard">
@@ -2056,8 +2049,9 @@ function findRoleIdByTitle(title) {
 
     function fillProfileCard(payload) {
       // header ID
-      $("pdfEmployeeId").textContent =
-        "ID: " + (payload.candidate.employeeId || "—");
+		$("pdfTagEmployeeId").textContent =
+		  "ID: " + (payload.candidate.employeeId || "—");
+
 
       // Basic info
       $("bi-name").innerText = payload.candidate.fullName || "—";
