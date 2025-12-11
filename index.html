@@ -1502,7 +1502,7 @@
 
     async function loadMasterData() {
       try {
-        const res = await fetch("/roles_master.csv");
+        const res = await fetch("./assets/roles_master.csv");
         if (!res.ok) {
           console.error("Failed to load roles_master.csv");
           return;
