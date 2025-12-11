@@ -570,14 +570,15 @@
       height: 100%;
     }
 
-    .box-header {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 6px;
-      font-weight: 700;
-      color: var(--ashley-orange-dark);
-    }
+	.box-header {
+	  display: flex;
+	  align-items: center;
+	  gap: 6px;
+	  margin-bottom: 6px;
+	  font-weight: 700;
+	  color: #1e3a8a; /* navy blue cho các header preview */
+	}
+
 
     .box-header span.icon {
       font-size: 14px;
@@ -801,18 +802,19 @@
           </div>
         </div>
 
-        <div class="field">
-          <label class="field-label" for="currentRole">
-            Current Role / Position <span class="required">*</span>
-          </label>
-          <input
-            type="text"
-            id="currentRole"
-            name="currentRole"
-            placeholder="e.g., Process Engineer"
-          />
-          <div id="err-currentRole" class="field-error"></div>
-        </div>
+		<div class="field">
+		  <label class="field-label" for="currentRole">
+		    Current Role / Position <span class="required">*</span>
+		  </label>
+		  <div class="field-help">
+		    Please select your current role / position. Options are filtered by your current department.
+		  </div>
+		  <select id="currentRole" name="currentRole">
+		    <option value="">-- Select department first --</option>
+		  </select>
+		  <div id="err-currentRole" class="field-error"></div>
+		</div>
+
       </section>
 
       <hr class="soft" />
@@ -1481,6 +1483,8 @@
     let targetRoles = [];
     const rolesMap = {};
     let lastPayload = null;
+	let positionsByDept = {}; // { deptName: [position1, position2, ...] }
+
 
     function $(id) {
       return document.getElementById(id);
@@ -1500,66 +1504,79 @@
     // LOAD CSV roles_master.csv
     // ===============================
 
-    async function loadMasterData() {
-      try {
-        const res = await fetch("./assets/roles_master.csv");
-        if (!res.ok) {
-          console.error("Failed to load roles_master.csv");
-          return;
-        }
-        const text = await res.text();
-        const lines = text.trim().split(/\r?\n/);
-        if (lines.length <= 1) return;
+		async function loadMasterData() {
+		  try {
+		    const res = await fetch("./assets/roles_master.csv");
+		    if (!res.ok) {
+		      console.error("Failed to load roles_master.csv");
+		      return;
+		    }
+		    const text = await res.text();
+		    const lines = text.trim().split(/\r?\n/);
+		    if (lines.length <= 1) return;
+		
+		    const headerRow = lines[0].split(",").map(h => h.trim().toLowerCase());
+		    const idxDept = headerRow.indexOf("department");
+		    const idxPos = headerRow.indexOf("position");
+		    const idxSucc = headerRow.indexOf("succession");
+		
+		    if (idxDept === -1 || idxPos === -1 || idxSucc === -1) {
+		      console.error("CSV headers must include department, position, succession");
+		      return;
+		    }
+		
+		    const deptSet = new Set();
+		    const tempRoles = [];
+		    const posMap = {}; // tạm lưu positions by dept (Set)
+		
+		    for (let i = 1; i < lines.length; i++) {
+		      const line = lines[i].trim();
+		      if (!line) continue;
+		      const cols = line.split(",");
+		      const dept = (cols[idxDept] || "").trim();
+		      const pos = (cols[idxPos] || "").trim();
+		      const succ = (cols[idxSucc] || "").trim().toUpperCase();
+		
+		      if (!dept || !pos) continue;
+		
+		      deptSet.add(dept);
+		
+		      // gom tất cả position cho Current Role / Position
+		      if (!posMap[dept]) posMap[dept] = new Set();
+		      posMap[dept].add(pos);
+		
+		      // chỉ những role succession = TRUE dùng cho Target Role
+		      if (succ === "TRUE") {
+		        const id =
+		          (dept + "__" + pos)
+		            .replace(/\s+/g, "_")
+		            .replace(/[^a-zA-Z0-9_]/g, "");
+		        const roleObj = {
+		          id,
+		          title: pos,
+		          dept,
+		          type: "managerial"
+		        };
+		        tempRoles.push(roleObj);
+		      }
+		    }
+		
+		    departments = Array.from(deptSet).sort();
+		    targetRoles = tempRoles;
+		    targetRoles.forEach(r => {
+		      rolesMap[r.id] = r;
+		    });
+		
+		    // chuyển posMap (Set) -> positionsByDept (Array)
+		    positionsByDept = {};
+		    Object.keys(posMap).forEach(d => {
+		      positionsByDept[d] = Array.from(posMap[d]).sort();
+		    });
+		  } catch (err) {
+		    console.error("Error loading master data:", err);
+		  }
+		}
 
-        const headerRow = lines[0].split(",").map(h => h.trim().toLowerCase());
-        const idxDept = headerRow.indexOf("department");
-        const idxPos = headerRow.indexOf("position");
-        const idxSucc = headerRow.indexOf("succession");
-
-        if (idxDept === -1 || idxPos === -1 || idxSucc === -1) {
-          console.error("CSV headers must include department, position, succession");
-          return;
-        }
-
-        const deptSet = new Set();
-        const tempRoles = [];
-
-        for (let i = 1; i < lines.length; i++) {
-          const line = lines[i].trim();
-          if (!line) continue;
-          const cols = line.split(",");
-          const dept = (cols[idxDept] || "").trim();
-          const pos = (cols[idxPos] || "").trim();
-          const succ = (cols[idxSucc] || "").trim().toUpperCase();
-
-          if (!dept || !pos) continue;
-
-          deptSet.add(dept);
-
-          if (succ === "TRUE") {
-            const id =
-              (dept + "__" + pos)
-                .replace(/\s+/g, "_")
-                .replace(/[^a-zA-Z0-9_]/g, "");
-            const roleObj = {
-              id,
-              title: pos,
-              dept,
-              type: "managerial"
-            };
-            tempRoles.push(roleObj);
-          }
-        }
-
-        departments = Array.from(deptSet).sort();
-        targetRoles = tempRoles;
-        targetRoles.forEach(r => {
-          rolesMap[r.id] = r;
-        });
-      } catch (err) {
-        console.error("Error loading master data:", err);
-      }
-    }
 
     // ===============================
     // DOM HELPERS
@@ -1635,6 +1652,30 @@
         pref2.appendChild(opt2);
       });
     }
+	
+	function refreshCurrentRoleOptions() {
+	  const dept = $("currentDept").value;
+	  const roleSelect = $("currentRole");
+	  roleSelect.innerHTML = "";
+	
+	  const placeholder = document.createElement("option");
+	  placeholder.value = "";
+	  placeholder.textContent = dept
+	    ? "-- Select role / position --"
+	    : "-- Select department first --";
+	  roleSelect.appendChild(placeholder);
+	
+	  if (!dept) return;
+	
+	  const list = positionsByDept[dept] || [];
+	  list.forEach(pos => {
+	    const opt = document.createElement("option");
+	    opt.value = pos;
+	    opt.textContent = pos;
+	    roleSelect.appendChild(opt);
+	  });
+	}
+
 
     function updateRoleDependentUI() {
       const currentDept = $("currentDept").value;
@@ -1701,21 +1742,30 @@
     // LOAD SAMPLE DATA BUTTON
     // ===============================
 
-    function findRoleIdByTitle(title) {
-      const role = targetRoles.find(r => r.title === title);
-      return role ? role.id : "";
-    }
+function findRoleIdByTitle(title) {
+  const target = title.trim().toLowerCase();
+  // match chính xác
+  let role = targetRoles.find(r => r.title.trim().toLowerCase() === target);
+  // nếu không thấy thì match chứa chuỗi
+  if (!role) {
+    role = targetRoles.find(r =>
+      r.title.trim().toLowerCase().includes(target)
+    );
+  }
+  return role ? role.id : "";
+}
+
 
     function loadSampleData() {
       clearAllErrors();
 
       // BASIC INFO
-      $("fullName").value = "Nguyen Van A";
-      $("employeeId").value = "0123";
-      $("workEmail").value = "nguyen.van.a@ashleyfurniture.com";
-      $("currentDept").value = "Engineering";
-      $("currentRole").value = "Process Engineer";
-
+		$("fullName").value = "Nguyen Van A";
+		$("employeeId").value = "0123";
+		$("workEmail").value = "nguyen.van.a@ashleyfurniture.com";
+		$("currentDept").value = "Engineering";
+		refreshCurrentRoleOptions();
+		$("currentRole").value = "Process Engineer";
       // PREFERENCES
       $("pref1Role").value = findRoleIdByTitle("Engineering Project Manager");
       $("pref1Reason").value =
@@ -2319,10 +2369,11 @@
       if (!data) return;
 
       $("fullName").value = data.fullName || "";
-      $("employeeId").value = data.employeeId || "";
-      $("workEmail").value = data.workEmail || "";
-      $("currentDept").value = data.currentDept || "";
-      $("currentRole").value = data.currentRole || "";
+	  $("employeeId").value = data.employeeId || "";
+	  $("workEmail").value = data.workEmail || "";
+	  $("currentDept").value = data.currentDept || "";
+	  refreshCurrentRoleOptions();
+	  $("currentRole").value = data.currentRole || "";
       $("pref1Role").value = data.pref1Role || "";
       $("pref1Reason").value = data.pref1Reason || "";
       $("pref2Role").value = data.pref2Role || "";
@@ -2374,10 +2425,12 @@
     document.addEventListener("DOMContentLoaded", async function () {
       // Load CSV-based data
       await loadMasterData();
-      initDepartments();
-      initRoles();
-      updateRoleDependentUI();
-      restoreFormFromLocalStorage();
+	  initDepartments();
+	  initRoles();
+	  refreshCurrentRoleOptions();
+	  restoreFormFromLocalStorage();
+	  updateRoleDependentUI();
+
 
       // Auto-format Employee ID (digits only, pad to 4 on blur)
       $("employeeId").addEventListener("input", function () {
@@ -2393,10 +2446,20 @@
       });
 
       // change/blur listeners to update UI & inline validation
-      $("currentDept").addEventListener("change", function () {
-        updateRoleDependentUI();
-        saveFormToLocalStorage();
-      });
+		$("currentDept").addEventListener("change", function () {
+		  refreshCurrentRoleOptions();
+		  updateRoleDependentUI();
+		  saveFormToLocalStorage();
+		});
+		
+		$("currentRole").addEventListener("focus", function () {
+		  if (!$("currentDept").value) {
+		    alert("Please select your Current Department first.");
+		    $("currentDept").focus();
+		  }
+		});
+
+		
       $("pref1Role").addEventListener("change", function () {
         updateRoleDependentUI();
         saveFormToLocalStorage();
