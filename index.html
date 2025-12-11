@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+
 
   <!-- PDF export library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -1072,49 +1073,6 @@
           <div id="err-changeDept" class="field-error"></div>
         </div>
 
-        <div class="field">
-          <label class="field-label">
-            Willingness to Relocate <span class="required">*</span>
-          </label>
-          <div class="field-help">
-            Tick all that apply. At least one option is required.
-          </div>
-          <div class="checkbox-row">
-            <label class="checkbox-item">
-              <input
-                type="checkbox"
-                name="relocateOptions"
-                value="same_province"
-              />
-              Within same province / city
-            </label>
-            <label class="checkbox-item">
-              <input
-                type="checkbox"
-                name="relocateOptions"
-                value="other_provinces"
-              />
-              Other provinces in Vietnam
-            </label>
-            <label class="checkbox-item">
-              <input
-                type="checkbox"
-                name="relocateOptions"
-                value="overseas"
-              />
-              Overseas (Asia)
-            </label>
-            <label class="checkbox-item">
-              <input
-                type="checkbox"
-                name="relocateOptions"
-                value="not_willing"
-              />
-              Not willing to relocate
-            </label>
-          </div>
-          <div id="err-relocateOptions" class="field-error"></div>
-        </div>
       </section>
 
       <hr class="soft" />
@@ -1378,18 +1336,14 @@
                 </div>
               </div>
 
-              <!-- RIGHT: MOBILITY & AVAILABILITY -->
+              <!-- RIGHT: Mobility – Department Change -->
               <div class="profile-col">
                 <div class="box">
                   <div class="box-header">
                     <span class="icon">🚚</span>
-                    <span>Mobility & Availability</span>
+                    <span>Mobility – Department Change</span>
                   </div>
                   <dl class="dl-grid">
-                    <div>
-                      <dt>Willing to relocate?</dt>
-                      <dd id="mob-relocate">—</dd>
-                    </div>
                     <div>
                       <dt>Open to change dept?</dt>
                       <dd id="mob-change">—</dd>
@@ -1602,12 +1556,6 @@
       }
     }
 
-    function getRelocateSelections() {
-      const checked = Array.from(
-        document.querySelectorAll('input[name="relocateOptions"]:checked')
-      );
-      return checked.map((c) => c.value);
-    }
 
     function getRadioValue(name) {
       const checked = document.querySelector(
@@ -1802,16 +1750,6 @@ function findRoleIdByTitle(title) {
         'input[name="changeDept"][value="maybe"]'
       ).checked = true;
 
-      document
-        .querySelectorAll('input[name="relocateOptions"]')
-        .forEach((c) => (c.checked = false));
-      document.querySelector(
-        'input[name="relocateOptions"][value="same_province"]'
-      ).checked = true;
-      document.querySelector(
-        'input[name="relocateOptions"][value="other_provinces"]'
-      ).checked = true;
-
       // OPTIONAL SELF-LEADERSHIP
       $("selfLeadership").value =
         "I created a 3-month self-learning plan on data visualisation, studied after working hours, and then built dashboards that help my manager track defect trends and make faster decisions.";
@@ -1879,7 +1817,7 @@ function findRoleIdByTitle(title) {
         hasError = true;
       }
       if (!currentRole) {
-        setError("currentRole", "Please enter your Current Role / Position.");
+        setError("currentRole", "Please select your Current Role / Position.");
         hasError = true;
       }
 
@@ -2011,13 +1949,6 @@ function findRoleIdByTitle(title) {
         hasError = true;
       }
 
-      const relocateSelections = getRelocateSelections();
-      if (relocateSelections.length === 0) {
-        $("err-relocateOptions").textContent =
-          "Please select at least one option for your willingness to relocate.";
-        hasError = true;
-      }
-
       // Consents
       let consErr = "";
       if (!$("consentDevelopment").checked) {
@@ -2093,10 +2024,10 @@ function findRoleIdByTitle(title) {
           careerGoals: $("careerGoals").value.trim(),
           motivation: $("motivation").value.trim(),
           willingChangeDept: getRadioValue("changeDept"),
-          willingRelocate: getRelocateSelections(),
           selfLeadershipExample:
             $("selfLeadership").value.trim() || null
         },
+
         consents: {
           developmentVsPromotion: $("consentDevelopment").checked,
           sharingWithHoDsAndHR: $("consentSharing").checked,
@@ -2115,17 +2046,6 @@ function findRoleIdByTitle(title) {
     // ===============================
     // PROFILE CARD POPULATION
     // ===============================
-
-    function humanizeRelocate(arr) {
-      if (!arr || arr.length === 0) return "—";
-      const mapping = {
-        same_province: "Within same province / city",
-        other_provinces: "Other provinces in Vietnam",
-        overseas: "Overseas (Asia)",
-        not_willing: "Not willing to relocate"
-      };
-      return arr.map((v) => mapping[v] || v).join(", ");
-    }
 
     function humanizeChangeDept(val) {
       if (val === "yes") return "Yes";
@@ -2181,9 +2101,6 @@ function findRoleIdByTitle(title) {
       $("rs2").innerText = (p2 && p2.reason) || "—";
 
       // Mobility
-      $("mob-relocate").innerText = humanizeRelocate(
-        payload.careerAndMobility.willingRelocate
-      );
       $("mob-change").innerText = humanizeChangeDept(
         payload.careerAndMobility.willingChangeDept
       );
@@ -2254,7 +2171,6 @@ function findRoleIdByTitle(title) {
           "Career Goals (1–3 years)",
           "Motivation for Roles",
           "Willingness to Change Dept",
-          "Willingness to Relocate",
           "Self-leadership Example",
           "Submitted At"
         ],
@@ -2278,7 +2194,6 @@ function findRoleIdByTitle(title) {
           payload.careerAndMobility.careerGoals || "",
           payload.careerAndMobility.motivation || "",
           humanizeChangeDept(payload.careerAndMobility.willingChangeDept),
-          humanizeRelocate(payload.careerAndMobility.willingRelocate),
           payload.careerAndMobility.selfLeadershipExample || "",
           payload.meta.submittedAt || ""
         ]
@@ -2340,7 +2255,6 @@ function findRoleIdByTitle(title) {
         motivation: $("motivation").value,
         selfLeadership: $("selfLeadership").value,
         changeDept: getRadioValue("changeDept"),
-        relocateOptions: getRelocateSelections(),
         consentDevelopment: $("consentDevelopment").checked,
         consentSharing: $("consentSharing").checked,
         consentAccuracy: $("consentAccuracy").checked
@@ -2392,15 +2306,6 @@ function findRoleIdByTitle(title) {
         .querySelectorAll('input[name="changeDept"]')
         .forEach((el) => {
           el.checked = (el.value === data.changeDept);
-        });
-
-      // Checkboxes relocateOptions
-      document
-        .querySelectorAll('input[name="relocateOptions"]')
-        .forEach((el) => {
-          el.checked = Array.isArray(data.relocateOptions)
-            ? data.relocateOptions.includes(el.value)
-            : false;
         });
 
       $("consentDevelopment").checked = !!data.consentDevelopment;
@@ -2497,28 +2402,6 @@ function findRoleIdByTitle(title) {
       // Form-wide input/change for saving
       $("applicationForm").addEventListener("input", saveFormToLocalStorage);
       $("applicationForm").addEventListener("change", saveFormToLocalStorage);
-
-      // Relocate checkboxes logic
-      const relocateCheckboxes = document.querySelectorAll(
-        'input[name="relocateOptions"]'
-      );
-      relocateCheckboxes.forEach((cb) => {
-        cb.addEventListener("change", () => {
-          const val = cb.value;
-          if (val === "not_willing" && cb.checked) {
-            // Uncheck all others
-            relocateCheckboxes.forEach((c2) => {
-              if (c2.value !== "not_willing") c2.checked = false;
-            });
-          } else if (val !== "not_willing" && cb.checked) {
-            // Uncheck "not_willing"
-            relocateCheckboxes.forEach((c2) => {
-              if (c2.value === "not_willing") c2.checked = false;
-            });
-          }
-          saveFormToLocalStorage();
-        });
-      });
 
       // Sample loader
       $("loadSampleBtn").addEventListener("click", function () {
