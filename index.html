@@ -692,31 +692,99 @@
       text-decoration: underline;
     }
 
+
+/* Light Ashley Orange Header – compact version */
+.header-orange {
+  background: linear-gradient(
+      90deg,
+      rgba(247, 142, 47, 0.14),
+      rgba(247, 142, 47, 0.05)
+    ),
+    #fff7ed;
+  padding: 24px 28px; /* giảm từ 40px */
+  border-radius: 16px; /* nhỏ hơn để nhìn gọn */
+  border: 1px solid #f5d8bd;
+}
+
+/* Logo – rút lại một chút */
+.header-logo-big {
+  width: 70px;   /* trước là 88px */
+  height: auto;
+  margin-bottom: 6px; /* giảm khoảng cách */
+  display: block;
+}
+
+/* Layout – giảm khoảng cách giữa các dòng */
+.header-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px; /* giảm từ 10px */
+}
+
+/* Page title */
+.page-title {
+  font-size: 24px;    /* giảm 28 → 24 */
+  font-weight: 800;
+  color: #b45309;
+  margin: 0;
+}
+
+/* Program name */
+.program-title {
+  font-size: 14px;    /* giảm 16 → 14 */
+  font-weight: 700;
+  color: #9a4a0b;
+  margin-top: -2px;
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: 13px;
+  color: #5c4a3a;
+  max-width: 760px;
+  line-height: 1.4;   /* nhỏ hơn 1.45 */
+  margin-top: 2px;
+}
+
+/* Instruction */
+.info-badge {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #876a54;
+  margin-top: 4px;
+}
+
   </style>
 </head>
 <body>
   <div class="page">
     <!-- HEADER -->
-    <div class="card">
-      <div class="header-main">
-        <div class="header-left">
-          <img src="assets/logo.png" alt="Ashley Logo" class="header-logo">
-          <div>
-            <div class="title">Talent Uplift – Candidate Profile</div>
-            <div class="subtitle">
-              Use this page to create and download your Candidate Profile (PDF + Excel) for the Talent Uplift / Successor Pool program. 
-              After downloading, please complete the official application form via Microsoft Forms.
-            </div>
-          </div>
-        </div>
-        <div class="tag">
-          <span>Candidate Profile Builder</span>
-        </div>
-      </div>
-      <div class="info-badge">
-        Please complete this page in English. Fields marked (*) are required.
-      </div>
+<div class="card header-orange">
+
+  <!-- BIG LOGO OUTSIDE TITLE -->
+  <img src="assets/logo.png" alt="Ashley Logo" class="header-logo-big">
+
+  <div class="header-main">
+    <div class="page-title">Candidate Profile Builder</div>
+
+    <div class="program-title">CVRO Talent Uplift Program 2026</div>
+
+    <div class="subtitle">
+      Use this page to build and download your Candidate Profile (PDF + Excel)
+      for the CVRO Talent Uplift program. Once ready, please submit your responses
+      through the official Microsoft Forms application.
     </div>
+
+    <div class="info-badge">
+      Please complete this page in English. Fields marked (*) are required.
+    </div>
+  </div>
+
+</div>
+
 
     <!-- ========== FORM CARD ========== -->
     <form id="applicationForm" class="card" novalidate>
