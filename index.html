@@ -2,11 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Successor Candidate Application Form + Profile</title>
+  <title>Talent Uplift – Candidate Profile Builder</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon.png">
 
   <!-- PDF export library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- SheetJS for Excel export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
   <style>
     :root {
@@ -55,6 +60,19 @@
       margin-bottom: 6px;
       gap: 12px;
       flex-wrap: wrap;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .header-logo {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
     }
 
     .title {
@@ -313,6 +331,7 @@
       justify-content: flex-end;
       gap: 10px;
       margin-top: 14px;
+      flex-wrap: wrap;
     }
 
     .btn {
@@ -458,7 +477,7 @@
       border-radius: 12px;
       padding: 16px 18px 18px;
       border: 1px solid #e5e7eb;
-      width: 800px;       /* ~ A4 width at 96dpi */
+      width: 800px;
       max-width: 100%;
       margin: 0 auto;
     }
@@ -543,22 +562,6 @@
       flex: 1 1 100%;
     }
 
-    .dl-vertical {
-      display: block;
-      font-size: 12px;
-    }
-    .dl-vertical div {
-      margin-bottom: 4px;
-    }
-    .dl-vertical dt {
-      color: #6b7280;
-      font-weight: 600;
-    }
-    .dl-vertical dd {
-      margin: 0;
-      color: #111827;
-    }
-
     .box {
       border-radius: 8px;
       border: 1px solid #e5e7eb;
@@ -572,7 +575,8 @@
       align-items: center;
       gap: 6px;
       margin-bottom: 6px;
-      font-weight: 600;
+      font-weight: 700;
+      color: var(--ashley-orange-dark);
     }
 
     .box-header span.icon {
@@ -634,44 +638,62 @@
       margin: 0 0 4px;
     }
 
-    /* page break helper if ever needed */
-    .page-break {
-      page-break-before: always;
+    .dept-tag {
+      font-size: 11px;
+      color: #6b7280;
+      font-style: italic;
     }
-		/* Basic Info – 3-column layout */
-	.dl-basic {
-	  display: grid;
-	  grid-template-columns: repeat(3, minmax(0, 1fr));
-	  gap: 6px 18px;
-	  font-size: 12px;
-	}
-	
-	.dl-basic .bi-item {
-	  min-width: 0;
-	}
-	
-	.dl-basic dt {
-	  font-size: 11px;
-	  font-weight: 700;
-	  color: #f97316; /* màu cam khác để nổi hơn */
-	  text-transform: uppercase;
-	  letter-spacing: 0.04em;
-	  margin-bottom: 2px;
-	}
-	
-	.dl-basic dd {
-	  margin: 0;
-	  font-size: 13px;
-	  font-weight: 600; /* đậm hơn các text khác */
-	  color: #111827;
-	}
-	
-	/* Mobile: xếp dọc lại cho dễ đọc */
-	@media (max-width: 768px) {
-	  .dl-basic {
-	    grid-template-columns: 1fr;
-	  }
-	}
+
+    /* Basic Info – 3-column layout */
+    .dl-basic {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px 18px;
+      font-size: 12px;
+    }
+
+    .dl-basic .bi-item {
+      min-width: 0;
+    }
+
+    .dl-basic dt {
+      font-size: 11px;
+      font-weight: 700;
+      color: #f97316;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+
+    .dl-basic dd {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    @media (max-width: 768px) {
+      .dl-basic {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Success modal */
+    .success-body {
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.5;
+    }
+
+    .success-body a {
+      color: var(--ashley-orange-dark);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .success-body a:hover {
+      text-decoration: underline;
+    }
 
   </style>
 </head>
@@ -680,26 +702,30 @@
     <!-- HEADER -->
     <div class="card">
       <div class="header-main">
-        <div>
-          <div class="title">Successor Candidate Application</div>
-          <div class="subtitle">
-            Internal application form for Talent Uplift / Successor Pool (2025).
+        <div class="header-left">
+          <img src="/logo.png" alt="Ashley Logo" class="header-logo">
+          <div>
+            <div class="title">Talent Uplift – Candidate Profile</div>
+            <div class="subtitle">
+              Use this page to create and download your Candidate Profile (PDF + Excel) for the Talent Uplift / Successor Pool program. 
+              After downloading, please complete the official application form via Microsoft Forms.
+            </div>
           </div>
         </div>
         <div class="tag">
           <span class="tag-dot"></span>
-          <span>Stage 2 – Candidate Application</span>
+          <span>Candidate Profile Builder</span>
         </div>
       </div>
       <div class="info-badge">
-        Please complete this form in English. Fields marked (*) are required.
+        Please complete this page in English. Fields marked (*) are required.
       </div>
     </div>
 
     <!-- ========== FORM CARD ========== -->
     <form id="applicationForm" class="card" novalidate>
       <div id="successMessage" class="success-msg" style="display:none;">
-        ✅ Your application passed validation. A candidate profile preview has been generated. Please review and confirm in the popup window.
+        ✅ Your profile passed validation. A Candidate Profile preview has been generated. Please review and confirm in the popup window.
       </div>
 
       <!-- SECTION 1 · CANDIDATE INFO -->
@@ -712,8 +738,7 @@
           <div class="section-chip">👤 Who you are</div>
         </div>
         <p class="section-desc">
-          Basic details used for identification and to link your application to
-          the nomination list.
+          Basic details used for identification and to link your profile to the Talent Uplift / Successor Pool nomination records.
         </p>
 
         <div class="grid-2">
@@ -733,14 +758,14 @@
 
           <div class="field">
             <label class="field-label" for="employeeId">
-              Employee ID <span class="required">*</span>
+              Employee ID (4 digits) <span class="required">*</span>
             </label>
             <input
               type="text"
               id="employeeId"
               name="employeeId"
               autocomplete="off"
-              placeholder="e.g., VN01234"
+              placeholder="e.g., 0123"
             />
             <div id="err-employeeId" class="field-error"></div>
           </div>
@@ -749,6 +774,9 @@
             <label class="field-label" for="workEmail">
               Work Email <span class="required">*</span>
             </label>
+            <div class="field-help">
+              Please use your work email (@ashleyfurniture.com).
+            </div>
             <input
               type="email"
               id="workEmail"
@@ -764,7 +792,7 @@
               Current Department <span class="required">*</span>
             </label>
             <div class="field-help">
-              Select the department you are currently assigned to.
+              Select the department you are currently assigned to (data loaded from roles_master.csv).
             </div>
             <select id="currentDept" name="currentDept">
               <option value="">-- Select department --</option>
@@ -781,7 +809,7 @@
             type="text"
             id="currentRole"
             name="currentRole"
-            placeholder="e.g., Team Leader of Product Development"
+            placeholder="e.g., Process Engineer"
           />
           <div id="err-currentRole" class="field-error"></div>
         </div>
@@ -799,9 +827,9 @@
           <div class="section-chip">🗂️ Target roles</div>
         </div>
         <p class="section-desc">
-          Select up to two roles you are interested in. At least one preference
-          must be within your current department. Roles below are based on the
-          VP-approved list for succession planning.
+          Select up to two roles you are interested in for the Talent Uplift / Successor Pool. 
+          At least one preference must be within your current department. 
+          Roles below are loaded from <strong>roles_master.csv</strong> (succession = TRUE).
         </p>
 
         <div class="pill-note">
@@ -834,8 +862,7 @@
               Reason for Preference 1 <span class="required">*</span>
             </label>
             <div class="field-help">
-              Why are you interested in this role and how does it support your
-              development path?
+              Why are you interested in this role and how does it support your development path?
             </div>
             <textarea
               id="pref1Reason"
@@ -859,8 +886,7 @@
               Target Role (Preference 2)
             </label>
             <div class="field-help">
-              Optional – select only if you would like to be considered for a
-              second role.
+              Optional – select only if you would like to be considered for a second role.
             </div>
             <select id="pref2Role" name="pref2Role">
               <option value="">-- No secondary preference --</option>
@@ -894,8 +920,7 @@
             Cross-department Justification <span class="required">*</span>
           </label>
           <div class="field-help">
-            This question appears because at least one of your preferences is in
-            a different department from your current one.
+            This question appears because at least one of your preferences is in a different department from your current one.
           </div>
           <textarea
             id="crossJustification"
@@ -918,9 +943,7 @@
           <div class="section-chip">🧭 Leadership focus</div>
         </div>
         <p class="section-desc">
-          As all target roles in this round are managerial, please describe your
-          leadership approach and provide one example using the SBI
-          (Situation–Behavior–Impact) format.
+          All target roles in this round are managerial. Please describe your leadership approach and provide one example using the SBI (Situation–Behavior–Impact) format.
         </p>
 
         <div class="field">
@@ -1021,7 +1044,7 @@
             id="motivation"
             name="motivation"
             minlength="30"
-            placeholder="Explain your motivation for joining the successor/Talent Uplift pool and being considered for the selected role(s)."
+            placeholder="Explain your motivation for joining the Talent Uplift / Successor Pool and being considered for the selected role(s)."
           ></textarea>
           <div id="err-motivation" class="field-error"></div>
         </div>
@@ -1104,8 +1127,7 @@
           <div class="section-chip">🌱 Ownership of growth</div>
         </div>
         <p class="section-desc">
-          You may share an example where you took ownership of your own
-          learning, performance, or development (optional but helpful).
+          You may share an example where you took ownership of your own learning, performance, or development (optional but helpful).
         </p>
 
         <div class="field">
@@ -1140,8 +1162,7 @@
               name="consentDevelopment"
             />
             <label for="consentDevelopment">
-              I understand that this program focuses on my development and
-              readiness and does not guarantee immediate promotion.
+              I understand that this program focuses on my development and readiness and does not guarantee immediate promotion.
             </label>
           </div>
           <div class="consent-line">
@@ -1151,9 +1172,7 @@
               name="consentSharing"
             />
             <label for="consentSharing">
-              I understand that my role preferences and application may be
-              shared with relevant Department Heads and HR for review and
-              follow-up development.
+              I understand that my role preferences and profile may be shared with relevant Department Heads and HR for review and follow-up development.
             </label>
           </div>
           <div class="consent-line">
@@ -1163,8 +1182,7 @@
               name="consentAccuracy"
             />
             <label for="consentAccuracy">
-              I confirm that the information provided in this form is accurate
-              to the best of my knowledge.
+              I confirm that the information provided in this profile is accurate to the best of my knowledge.
             </label>
           </div>
           <div id="err-consents" class="field-error"></div>
@@ -1178,7 +1196,7 @@
         </button>
         <button type="submit" class="btn btn-primary">
           <span class="btn-icon">📤</span>
-          <span>Submit Application</span>
+          <span>Generate Candidate Profile</span>
         </button>
       </div>
     </form>
@@ -1209,38 +1227,37 @@
               </div>
             </div>
             <div class="pdf-header-right">
-              <div class="pdf-tag">Stage 2 – Candidate Application</div>
+              <div class="pdf-tag">Candidate Profile Builder</div>
               <div class="pdf-id" id="pdfEmployeeId">ID: —</div>
             </div>
           </div>
 
           <div id="candidateProfileCard">
-		<!-- ROW 1 · BASIC INFO (FULL WIDTH, 3 COLUMNS) -->
-		<div class="profile-row">
-		  <div class="profile-col-full">
-		    <div class="box">
-		      <div class="box-header">
-		        <span class="icon">👤</span>
-		        <span>Basic Info</span>
-		      </div>
-		      <dl class="dl-basic">
-		        <div class="bi-item">
-		          <dt>Full name</dt>
-		          <dd id="bi-name">—</dd>
-		        </div>
-		        <div class="bi-item">
-		          <dt>Department</dt>
-		          <dd id="bi-dept">—</dd>
-		        </div>
-		        <div class="bi-item">
-		          <dt>Current role</dt>
-		          <dd id="bi-role">—</dd>
-		        </div>
-		      </dl>
-		    </div>
-		  </div>
-		</div>
-
+            <!-- ROW 1 · BASIC INFO (FULL WIDTH, 3 COLUMNS) -->
+            <div class="profile-row">
+              <div class="profile-col-full">
+                <div class="box">
+                  <div class="box-header">
+                    <span class="icon">👤</span>
+                    <span>Basic Info</span>
+                  </div>
+                  <dl class="dl-basic">
+                    <div class="bi-item">
+                      <dt>Full name</dt>
+                      <dd id="bi-name">—</dd>
+                    </div>
+                    <div class="bi-item">
+                      <dt>Department</dt>
+                      <dd id="bi-dept">—</dd>
+                    </div>
+                    <div class="bi-item">
+                      <dt>Current role</dt>
+                      <dd id="bi-role">—</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </div>
 
             <!-- ROW 2 · SUCCESSION PREFERENCES (2 COLUMNS) -->
             <div class="profile-row">
@@ -1388,7 +1405,45 @@
             ⬅ Back to form
           </button>
           <button type="button" class="btn btn-primary" id="finalSubmitBtn">
-            ✅ Confirm & Download JSON + PDF
+            ✅ Confirm & Download EXCEL + PDF
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div id="successModal" class="modal">
+      <div class="modal-backdrop"></div>
+      <div class="modal-dialog">
+        <div class="modal-header-row">
+          <div class="modal-title">Next Step – Complete Your Application</div>
+          <button type="button" id="closeSuccessBtn" class="modal-close" aria-label="Close">
+            ×
+          </button>
+        </div>
+        <div class="success-body">
+          <p>✅ Your Candidate Profile (PDF and Excel) has been downloaded successfully.</p>
+          <p>Please check both files and then complete the official application form here:</p>
+          <p>
+            🔗 <a href="https://forms.office.com/r/E7J5syLsjD" target="_blank" rel="noopener">
+              Microsoft Forms – Talent Uplift Application
+            </a>
+          </p>
+          <p>
+            Or return to the SharePoint portal for full guidelines:<br>
+            🔗 <a href="https://masterashley.sharepoint.com/sites/Talent_Uplift_Program" target="_blank" rel="noopener">
+              Talent Uplift Program – SharePoint Site
+            </a>
+          </p>
+          <p>If you need support, please contact:</p>
+          <ul>
+            <li>Alice Nguyen – <a href="mailto:anguyen@ashleyfurniture.com">anguyen@ashleyfurniture.com</a></li>
+            <li>Linh Tran – <a href="mailto:ltrankhanh@ashleyfurniture.com">ltrankhanh@ashleyfurniture.com</a></li>
+          </ul>
+        </div>
+        <div class="btn-row" style="margin-top:14px;">
+          <button type="button" class="btn btn-primary" id="successOkBtn">
+            Close
           </button>
         </div>
       </div>
@@ -1398,10 +1453,10 @@
     <div class="card">
       <h2 class="section-title">
         <span class="section-badge">Debug</span>
-        JSON Preview (for Testing)
+        Data Preview (for Testing)
       </h2>
       <p class="section-desc">
-        This section is for testing only. It shows the final JSON payload that will be sent to your backend / SharePoint workflow.
+        This section is for testing only. It shows the final JSON payload that is used to generate your Excel & PDF files.
       </p>
 
       <div style="margin-bottom:10px;">
@@ -1418,193 +1473,97 @@
 
   <script>
     // ===============================
-    // CONFIG · DEPARTMENTS & ROLES
+    // CONFIG · CSV & STORAGE
     // ===============================
 
-    const departments = [
-      "Asia Human Resources",
-      "Engineering",
-      "Product Development",
-      "Quality Assurance",
-      "Strategy Execution",
-      "Strategic Sourcing",
-      "CGI / Creative",
-      "Sourcing Operations",
-      "Material Sourcing",
-      "Others"
-    ];
-
-    // All roles treated as managerial in this version
-    const targetRoles = [
-      // Asia Human Resources
-      {
-        id: "AHR_STL_TD",
-        title: "Senior Talent Development Specialist",
-        dept: "Asia Human Resources",
-        type: "managerial"
-      },
-      {
-        id: "AHR_MGR_HR_ADMIN",
-        title: "Manager of HR and Admin",
-        dept: "Asia Human Resources",
-        type: "managerial"
-      },
-
-      // Engineering
-      {
-        id: "ENG_PM",
-        title: "Engineering Project Manager",
-        dept: "Engineering",
-        type: "managerial"
-      },
-      {
-        id: "ENG_MGR",
-        title: "Manager of Engineering",
-        dept: "Engineering",
-        type: "managerial"
-      },
-      {
-        id: "ENG_TL_COMPLIANCE",
-        title: "Senior Team Leader of Compliance Engineering",
-        dept: "Engineering",
-        type: "managerial"
-      },
-      {
-        id: "ENG_PROCESS_ENG",
-        title: "Process Engineer",
-        dept: "Engineering",
-        type: "managerial"
-      },
-      {
-        id: "ENG_PACKAGING_ENG",
-        title: "Packaging Engineer",
-        dept: "Engineering",
-        type: "managerial"
-      },
-
-      // Product Development
-      {
-        id: "PD_MGR",
-        title: "Manager of Product Development",
-        dept: "Product Development",
-        type: "managerial"
-      },
-      {
-        id: "PD_TL_DEV",
-        title: "Team Leader of Product Development",
-        dept: "Product Development",
-        type: "managerial"
-      },
-      {
-        id: "PD_TL_MATERIAL",
-        title: "Team Leader of Product Development Material",
-        dept: "Product Development",
-        type: "managerial"
-      },
-      {
-        id: "PD_3D_ARTIST",
-        title: "3D Artist",
-        dept: "Product Development",
-        type: "managerial"
-      },
-
-      // Quality Assurance
-      {
-        id: "QA_VENDOR_CHAMP",
-        title: "Vendor Champion",
-        dept: "Quality Assurance",
-        type: "managerial"
-      },
-      {
-        id: "QA_TL_PERF_TEST",
-        title: "Team Leader of Performance Testing",
-        dept: "Quality Assurance",
-        type: "managerial"
-      },
-      {
-        id: "QA_MATERIAL_ASSURANCE",
-        title: "Material Assurance Specialist",
-        dept: "Quality Assurance",
-        type: "managerial"
-      },
-
-      // Strategy Execution
-      {
-        id: "STR_EXEC_MGR",
-        title: "Manager of Strategy Execution",
-        dept: "Strategy Execution",
-        type: "managerial"
-      },
-      {
-        id: "STR_EXEC_ASSOC",
-        title: "Process Integration Associate",
-        dept: "Strategy Execution",
-        type: "managerial"
-      },
-
-      // Strategic Sourcing
-      {
-        id: "SS_MGR",
-        title: "Manager of Strategic Sourcing",
-        dept: "Strategic Sourcing",
-        type: "managerial"
-      },
-      {
-        id: "SS_MATERIAL_SOURCING",
-        title: "Material Sourcing Specialist",
-        dept: "Strategic Sourcing",
-        type: "managerial"
-      },
-      {
-        id: "SS_COST_ANALYST",
-        title: "Cost Analyst",
-        dept: "Strategic Sourcing",
-        type: "managerial"
-      },
-
-      // CGI / Creative
-      {
-        id: "CGI_PHOTOGRAPHER",
-        title: "CGI Photographer",
-        dept: "CGI / Creative",
-        type: "managerial"
-      },
-      {
-        id: "CGI_3D_ANIM",
-        title: "3D Animation Artist",
-        dept: "CGI / Creative",
-        type: "managerial"
-      },
-
-      // Sourcing Operations
-      {
-        id: "SO_INDUSTRIAL_ENG",
-        title: "Industrial Engineer",
-        dept: "Sourcing Operations",
-        type: "managerial"
-      },
-      {
-        id: "SO_FIELD_TEST_COORD",
-        title: "Field Testing Coordinator",
-        dept: "Sourcing Operations",
-        type: "managerial"
-      }
-    ];
-
+    const STORAGE_KEY = "talent_uplift_candidate_profile_v1";
+    let departments = [];
+    let targetRoles = [];
     const rolesMap = {};
-    targetRoles.forEach((r) => {
-      rolesMap[r.id] = r;
-    });
-
-    let lastPayload = null; // lưu payload sau form submit đã pass
-
-    // ===============================
-    // DOM HELPERS
-    // ===============================
+    let lastPayload = null;
 
     function $(id) {
       return document.getElementById(id);
     }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // ===============================
+    // LOAD CSV roles_master.csv
+    // ===============================
+
+    async function loadMasterData() {
+      try {
+        const res = await fetch("/roles_master.csv");
+        if (!res.ok) {
+          console.error("Failed to load roles_master.csv");
+          return;
+        }
+        const text = await res.text();
+        const lines = text.trim().split(/\r?\n/);
+        if (lines.length <= 1) return;
+
+        const headerRow = lines[0].split(",").map(h => h.trim().toLowerCase());
+        const idxDept = headerRow.indexOf("department");
+        const idxPos = headerRow.indexOf("position");
+        const idxSucc = headerRow.indexOf("succession");
+
+        if (idxDept === -1 || idxPos === -1 || idxSucc === -1) {
+          console.error("CSV headers must include department, position, succession");
+          return;
+        }
+
+        const deptSet = new Set();
+        const tempRoles = [];
+
+        for (let i = 1; i < lines.length; i++) {
+          const line = lines[i].trim();
+          if (!line) continue;
+          const cols = line.split(",");
+          const dept = (cols[idxDept] || "").trim();
+          const pos = (cols[idxPos] || "").trim();
+          const succ = (cols[idxSucc] || "").trim().toUpperCase();
+
+          if (!dept || !pos) continue;
+
+          deptSet.add(dept);
+
+          if (succ === "TRUE") {
+            const id =
+              (dept + "__" + pos)
+                .replace(/\s+/g, "_")
+                .replace(/[^a-zA-Z0-9_]/g, "");
+            const roleObj = {
+              id,
+              title: pos,
+              dept,
+              type: "managerial"
+            };
+            tempRoles.push(roleObj);
+          }
+        }
+
+        departments = Array.from(deptSet).sort();
+        targetRoles = tempRoles;
+        targetRoles.forEach(r => {
+          rolesMap[r.id] = r;
+        });
+      } catch (err) {
+        console.error("Error loading master data:", err);
+      }
+    }
+
+    // ===============================
+    // DOM HELPERS
+    // ===============================
 
     function getSelectedRole(roleSelectId) {
       const select = $(roleSelectId);
@@ -1621,7 +1580,7 @@
       } else {
         el.innerHTML =
           "Department: <strong>" +
-          role.dept +
+          escapeHtml(role.dept) +
           "</strong> · <span style='font-size:11px;color:#6b7280'>(Managerial)</span>";
       }
     }
@@ -1646,6 +1605,7 @@
 
     function initDepartments() {
       const deptSelect = $("currentDept");
+      deptSelect.innerHTML = '<option value="">-- Select department --</option>';
       departments.forEach((dept) => {
         const opt = document.createElement("option");
         opt.value = dept;
@@ -1657,6 +1617,9 @@
     function initRoles() {
       const pref1 = $("pref1Role");
       const pref2 = $("pref2Role");
+
+      pref1.innerHTML = '<option value="">-- Select role --</option>';
+      pref2.innerHTML = '<option value="">-- No secondary preference --</option>';
 
       targetRoles.forEach((role) => {
         const text = role.dept + " – " + role.title;
@@ -1672,10 +1635,6 @@
         pref2.appendChild(opt2);
       });
     }
-
-    // ===============================
-    // DYNAMIC VISIBILITY
-    // ===============================
 
     function updateRoleDependentUI() {
       const currentDept = $("currentDept").value;
@@ -1726,45 +1685,50 @@
       if (field) field.classList.add("has-error");
     }
 
+    function scrollToFirstError() {
+      const firstErrorField = document.querySelector(".has-error");
+      if (firstErrorField) {
+        const rect = firstErrorField.getBoundingClientRect();
+        const offset = window.scrollY + rect.top - 80;
+        window.scrollTo({ top: offset, behavior: "smooth" });
+        try {
+          firstErrorField.focus({ preventScroll: true });
+        } catch (e) {}
+      }
+    }
+
     // ===============================
     // LOAD SAMPLE DATA BUTTON
     // ===============================
 
+    function findRoleIdByTitle(title) {
+      const role = targetRoles.find(r => r.title === title);
+      return role ? role.id : "";
+    }
+
     function loadSampleData() {
-      // Reset dropdown options
-      $("currentDept").innerHTML =
-        '<option value="">-- Select department --</option>';
-      $("pref1Role").innerHTML =
-        '<option value="">-- Select role --</option>';
-      $("pref2Role").innerHTML =
-        '<option value="">-- No secondary preference --</option>';
-
-      // Reload options
-      initDepartments();
-      initRoles();
-
       clearAllErrors();
 
-      // ===== BASIC INFO =====
+      // BASIC INFO
       $("fullName").value = "Nguyen Van A";
-      $("employeeId").value = "VN01234";
+      $("employeeId").value = "0123";
       $("workEmail").value = "nguyen.van.a@ashleyfurniture.com";
       $("currentDept").value = "Engineering";
       $("currentRole").value = "Process Engineer";
 
-      // ===== PREFERENCES =====
-      $("pref1Role").value = "ENG_PM"; // Engineering Project Manager
+      // PREFERENCES
+      $("pref1Role").value = findRoleIdByTitle("Engineering Project Manager");
       $("pref1Reason").value =
         "I aim to grow into a project leadership role where I can coordinate cross-functional work, manage timelines, and deliver impactful engineering outcomes for both factory and commercial teams.";
 
-      $("pref2Role").value = "STR_EXEC_MGR"; // Manager of Strategy Execution
+      $("pref2Role").value = findRoleIdByTitle("Manager of Strategy Execution");
       $("pref2Reason").value =
         "I am also interested in Strategy Execution because it connects data, projects and business priorities. This role would allow me to work across departments and drive initiatives that improve execution discipline.";
 
       $("crossJustification").value =
         "My current role in Engineering already requires frequent collaboration with Strategy Execution on project timelines, risk tracking and improvement initiatives, so I have relevant exposure and interest in this area.";
 
-      // ===== ROLE-SPECIFIC =====
+      // ROLE-SPECIFIC
       $("leadershipStyle").value =
         "I try to lead with clarity, trust and support. I focus on setting clear expectations, giving regular feedback, and creating space for team members to share ideas and take ownership of their tasks.";
       $("sbiSituation").value =
@@ -1774,13 +1738,13 @@
       $("sbiImpact").value =
         "The team caught up on the timeline, reported higher clarity and confidence, and stakeholders recognised the team for the improved coordination.";
 
-      // ===== CAREER & MOTIVATION =====
+      // CAREER & MOTIVATION
       $("careerGoals").value =
         "In the next 1–3 years, I want to strengthen my project management capability, cross-functional collaboration and leadership skills so that I can handle larger regional projects and lead a small team.";
       $("motivation").value =
         "I want to be considered for these roles because I believe I can contribute more by coordinating people, processes and data, not only by doing individual engineering tasks. I am committed to long-term development with Ashley and ready to invest effort to grow into these roles.";
 
-      // ===== MOBILITY =====
+      // MOBILITY
       document
         .querySelectorAll('input[name="changeDept"]')
         .forEach((x) => (x.checked = false));
@@ -1798,20 +1762,20 @@
         'input[name="relocateOptions"][value="other_provinces"]'
       ).checked = true;
 
-      // ===== OPTIONAL SELF-LEADERSHIP =====
+      // OPTIONAL SELF-LEADERSHIP
       $("selfLeadership").value =
         "I created a 3-month self-learning plan on data visualisation, studied after working hours, and then built dashboards that help my manager track defect trends and make faster decisions.";
 
-      // ===== CONSENTS =====
+      // CONSENTS
       $("consentDevelopment").checked = true;
       $("consentSharing").checked = true;
       $("consentAccuracy").checked = true;
 
-      // Update dynamic UI
       updateRoleDependentUI();
+      saveFormToLocalStorage();
 
       alert(
-        "Sample data loaded! Now you can click Submit Application and it should pass all validations."
+        "Sample data loaded! Now you can click Generate Candidate Profile and it should pass all validations."
       );
     }
 
@@ -1833,14 +1797,33 @@
         setError("fullName", "Please enter your Full Name.");
         hasError = true;
       }
-      if (!employeeId) {
-        setError("employeeId", "Please enter your Employee ID.");
+
+      const numericEmpId = employeeId.replace(/\D/g, "");
+      if (!numericEmpId) {
+        setError("employeeId", "Please enter your Employee ID (4 digits).");
+        hasError = true;
+      } else if (numericEmpId.length !== 4) {
+        setError(
+          "employeeId",
+          "Employee ID must be 4 digits. The system will auto-format if needed."
+        );
         hasError = true;
       }
+
       if (!workEmail) {
         setError("workEmail", "Please enter your Work Email.");
         hasError = true;
+      } else {
+        const emailPattern = /^[^\s@]+@ashleyfurniture\.com$/i;
+        if (!emailPattern.test(workEmail)) {
+          setError(
+            "workEmail",
+            "Please use your work email with '@ashleyfurniture.com'."
+          );
+          hasError = true;
+        }
       }
+
       if (!currentDept) {
         setError("currentDept", "Please select your current Department.");
         hasError = true;
@@ -1888,8 +1871,7 @@
       // At least 1 preference must be within current department
       if (currentDept && pref1Role) {
         const pref1InDept = pref1Role.dept === currentDept;
-        const pref2InDept =
-          pref2Role && pref2Role.dept === currentDept;
+        const pref2InDept = pref2Role && pref2Role.dept === currentDept;
         if (!pref1InDept && !pref2InDept) {
           setError(
             "pref1Role",
@@ -1995,7 +1977,7 @@
       if (!$("consentSharing").checked) {
         consErr =
           (consErr ? consErr + " " : "") +
-          "Please confirm your understanding that your application may be shared with relevant stakeholders.";
+          "Please confirm your understanding that your profile may be shared with relevant stakeholders.";
       }
       if (!$("consentAccuracy").checked) {
         consErr =
@@ -2117,13 +2099,21 @@
       const p2 = payload.preferences.preference2;
 
       if (p1) {
-        $("pref1").innerText = p1.roleTitle + " (" + p1.department + ")";
+        $("pref1").innerHTML =
+          escapeHtml(p1.roleTitle) +
+          ' <span class="dept-tag">(' +
+          escapeHtml(p1.department) +
+          ")</span>";
       } else {
         $("pref1").innerText = "—";
       }
 
       if (p2) {
-        $("pref2").innerText = p2.roleTitle + " (" + p2.department + ")";
+        $("pref2").innerHTML =
+          escapeHtml(p2.roleTitle) +
+          ' <span class="dept-tag">(' +
+          escapeHtml(p2.department) +
+          ")</span>";
       } else {
         $("pref2").innerText = "—";
       }
@@ -2170,36 +2160,91 @@
     }
 
     // ===============================
-    // PDF & JSON DOWNLOAD
+    // FILE NAMING
     // ===============================
 
-    function downloadJson(payload) {
-      const json = JSON.stringify(payload, null, 2);
-      const blob = new Blob([json], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const employeeId =
-        (payload.candidate.employeeId || "candidate")
-          .replace(/[^a-zA-Z0-9_-]/g, "_");
-      const fileName =
-        "successor_application_" + employeeId + ".json";
-
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+    function getFileBaseName(payload) {
+      const rawId = payload.candidate.employeeId || "candidate";
+      const safeId = rawId.replace(/[^a-zA-Z0-9_-]/g, "_");
+      const dt = new Date();
+      const yyyy = dt.getFullYear();
+      const mm = String(dt.getMonth() + 1).padStart(2, "0");
+      const dd = String(dt.getDate()).padStart(2, "0");
+      return `candidate_profile_${safeId}_${yyyy}${mm}${dd}`;
     }
 
-    // export trực tiếp từ #pdfWrapper
-    function downloadProfilePdf(payload) {
-      const employeeId =
-        (payload.candidate.employeeId || "candidate").replace(/[^a-zA-Z0-9_-]/g, "_");
+    // ===============================
+    // EXCEL & PDF DOWNLOAD
+    // ===============================
 
+    function downloadExcel(payload) {
+      const baseName = getFileBaseName(payload);
+
+      const p1 = payload.preferences.preference1 || {};
+      const p2 = payload.preferences.preference2 || {};
+
+      const data = [
+        [
+          "Full Name",
+          "Employee ID",
+          "Work Email",
+          "Current Department",
+          "Current Role",
+          "Pref1 Role Title",
+          "Pref1 Department",
+          "Pref1 Reason",
+          "Pref2 Role Title",
+          "Pref2 Department",
+          "Pref2 Reason",
+          "Cross-dept Justification",
+          "Leadership Style",
+          "SBI – Situation",
+          "SBI – Behavior",
+          "SBI – Impact",
+          "Career Goals (1–3 years)",
+          "Motivation for Roles",
+          "Willingness to Change Dept",
+          "Willingness to Relocate",
+          "Self-leadership Example",
+          "Submitted At"
+        ],
+        [
+          payload.candidate.fullName || "",
+          payload.candidate.employeeId || "",
+          payload.candidate.workEmail || "",
+          payload.candidate.currentDept || "",
+          payload.candidate.currentRole || "",
+          p1.roleTitle || "",
+          p1.department || "",
+          p1.reason || "",
+          p2.roleTitle || "",
+          p2.department || "",
+          p2.reason || "",
+          payload.preferences.crossDepartmentJustification || "",
+          payload.roleSpecific.leadershipStyle || "",
+          payload.roleSpecific.sbiSituation || "",
+          payload.roleSpecific.sbiBehavior || "",
+          payload.roleSpecific.sbiImpact || "",
+          payload.careerAndMobility.careerGoals || "",
+          payload.careerAndMobility.motivation || "",
+          humanizeChangeDept(payload.careerAndMobility.willingChangeDept),
+          humanizeRelocate(payload.careerAndMobility.willingRelocate),
+          payload.careerAndMobility.selfLeadershipExample || "",
+          payload.meta.submittedAt || ""
+        ]
+      ];
+
+      const ws = XLSX.utils.aoa_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Candidate_Profile");
+      XLSX.writeFile(wb, baseName + ".xlsx");
+    }
+
+    function downloadProfilePdf(payload) {
+      const baseName = getFileBaseName(payload);
       const opt = {
         margin: [10, 10, 10, 10],
-        filename: "candidate_profile_" + employeeId + ".pdf",
+        filename: baseName + ".pdf",
         image: { type: "jpeg", quality: 0.98 },
         html2canvas: {
           scale: 2,
@@ -2222,26 +2267,143 @@
     }
 
     // ===============================
+    // LOCAL STORAGE
+    // ===============================
+
+    function saveFormToLocalStorage() {
+      const data = {
+        fullName: $("fullName").value,
+        employeeId: $("employeeId").value,
+        workEmail: $("workEmail").value,
+        currentDept: $("currentDept").value,
+        currentRole: $("currentRole").value,
+        pref1Role: $("pref1Role").value,
+        pref1Reason: $("pref1Reason").value,
+        pref2Role: $("pref2Role").value,
+        pref2Reason: $("pref2Reason").value,
+        crossJustification: $("crossJustification").value,
+        leadershipStyle: $("leadershipStyle").value,
+        sbiSituation: $("sbiSituation").value,
+        sbiBehavior: $("sbiBehavior").value,
+        sbiImpact: $("sbiImpact").value,
+        careerGoals: $("careerGoals").value,
+        motivation: $("motivation").value,
+        selfLeadership: $("selfLeadership").value,
+        changeDept: getRadioValue("changeDept"),
+        relocateOptions: getRelocateSelections(),
+        consentDevelopment: $("consentDevelopment").checked,
+        consentSharing: $("consentSharing").checked,
+        consentAccuracy: $("consentAccuracy").checked
+      };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {
+        console.warn("LocalStorage save error:", e);
+      }
+    }
+
+    function restoreFormFromLocalStorage() {
+      let raw = null;
+      try {
+        raw = localStorage.getItem(STORAGE_KEY);
+      } catch (e) {
+        console.warn("LocalStorage read error:", e);
+      }
+      if (!raw) return;
+      let data;
+      try {
+        data = JSON.parse(raw);
+      } catch (e) {
+        return;
+      }
+      if (!data) return;
+
+      $("fullName").value = data.fullName || "";
+      $("employeeId").value = data.employeeId || "";
+      $("workEmail").value = data.workEmail || "";
+      $("currentDept").value = data.currentDept || "";
+      $("currentRole").value = data.currentRole || "";
+      $("pref1Role").value = data.pref1Role || "";
+      $("pref1Reason").value = data.pref1Reason || "";
+      $("pref2Role").value = data.pref2Role || "";
+      $("pref2Reason").value = data.pref2Reason || "";
+      $("crossJustification").value = data.crossJustification || "";
+      $("leadershipStyle").value = data.leadershipStyle || "";
+      $("sbiSituation").value = data.sbiSituation || "";
+      $("sbiBehavior").value = data.sbiBehavior || "";
+      $("sbiImpact").value = data.sbiImpact || "";
+      $("careerGoals").value = data.careerGoals || "";
+      $("motivation").value = data.motivation || "";
+      $("selfLeadership").value = data.selfLeadership || "";
+
+      // Radio changeDept
+      document
+        .querySelectorAll('input[name="changeDept"]')
+        .forEach((el) => {
+          el.checked = (el.value === data.changeDept);
+        });
+
+      // Checkboxes relocateOptions
+      document
+        .querySelectorAll('input[name="relocateOptions"]')
+        .forEach((el) => {
+          el.checked = Array.isArray(data.relocateOptions)
+            ? data.relocateOptions.includes(el.value)
+            : false;
+        });
+
+      $("consentDevelopment").checked = !!data.consentDevelopment;
+      $("consentSharing").checked = !!data.consentSharing;
+      $("consentAccuracy").checked = !!data.consentAccuracy;
+
+      updateRoleDependentUI();
+    }
+
+    function clearLocalStorageData() {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (e) {
+        console.warn("LocalStorage clear error:", e);
+      }
+    }
+
+    // ===============================
     // MAIN INIT
     // ===============================
 
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", async function () {
+      // Load CSV-based data
+      await loadMasterData();
       initDepartments();
       initRoles();
       updateRoleDependentUI();
+      restoreFormFromLocalStorage();
+
+      // Auto-format Employee ID (digits only, pad to 4 on blur)
+      $("employeeId").addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, "");
+        saveFormToLocalStorage();
+      });
+      $("employeeId").addEventListener("blur", function () {
+        let v = this.value.replace(/\D/g, "");
+        if (!v) return;
+        if (v.length > 4) v = v.slice(-4);
+        this.value = v.padStart(4, "0");
+        saveFormToLocalStorage();
+      });
 
       // change/blur listeners to update UI & inline validation
       $("currentDept").addEventListener("change", function () {
         updateRoleDependentUI();
-        validateForm();
+        saveFormToLocalStorage();
       });
       $("pref1Role").addEventListener("change", function () {
         updateRoleDependentUI();
-        validateForm();
+        saveFormToLocalStorage();
       });
       $("pref2Role").addEventListener("change", function () {
         updateRoleDependentUI();
-        validateForm();
+        saveFormToLocalStorage();
       });
 
       const validateOnBlurIds = [
@@ -2264,8 +2426,35 @@
         if (el) {
           el.addEventListener("blur", () => {
             validateForm();
+            saveFormToLocalStorage();
           });
         }
+      });
+
+      // Form-wide input/change for saving
+      $("applicationForm").addEventListener("input", saveFormToLocalStorage);
+      $("applicationForm").addEventListener("change", saveFormToLocalStorage);
+
+      // Relocate checkboxes logic
+      const relocateCheckboxes = document.querySelectorAll(
+        'input[name="relocateOptions"]'
+      );
+      relocateCheckboxes.forEach((cb) => {
+        cb.addEventListener("change", () => {
+          const val = cb.value;
+          if (val === "not_willing" && cb.checked) {
+            // Uncheck all others
+            relocateCheckboxes.forEach((c2) => {
+              if (c2.value !== "not_willing") c2.checked = false;
+            });
+          } else if (val !== "not_willing" && cb.checked) {
+            // Uncheck "not_willing"
+            relocateCheckboxes.forEach((c2) => {
+              if (c2.value === "not_willing") c2.checked = false;
+            });
+          }
+          saveFormToLocalStorage();
+        });
       });
 
       // Sample loader
@@ -2291,7 +2480,7 @@
           $("profileModal").classList.add("show");
         } else {
           $("successMessage").style.display = "none";
-          window.scrollTo({ top: 0, behavior: "smooth" });
+          scrollToFirstError();
         }
       });
 
@@ -2302,6 +2491,7 @@
           "<strong>Waiting for submission…</strong>";
         $("successMessage").style.display = "none";
         lastPayload = null;
+        clearLocalStorageData();
         setTimeout(updateRoleDependentUI, 10);
       });
 
@@ -2317,13 +2507,24 @@
 
       $("finalSubmitBtn").addEventListener("click", function () {
         if (!lastPayload) {
-          alert("Please submit the application form first.");
+          alert("Please generate the Candidate Profile first.");
           return;
         }
-        const finalPayload = lastPayload; // luôn đồng nhất form – profile
+        const finalPayload = lastPayload; // consistent with preview
         showJsonPreview(finalPayload);
-        downloadJson(finalPayload);
+        downloadExcel(finalPayload);
         downloadProfilePdf(finalPayload);
+
+        // show success modal
+        $("successModal").classList.add("show");
+      });
+
+      // Success modal controls
+      $("closeSuccessBtn").addEventListener("click", function () {
+        $("successModal").classList.remove("show");
+      });
+      $("successOkBtn").addEventListener("click", function () {
+        $("successModal").classList.remove("show");
       });
     });
   </script>
