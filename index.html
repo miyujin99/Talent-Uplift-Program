@@ -783,7 +783,7 @@
         font-size: 13px;
       }
 
-      .subtitle {
+      .header-subtitle {
         font-size: 12px;
       }
 
@@ -843,6 +843,18 @@
 	  border: 1px solid #fed7aa;
 	  transition: all 0.15s ease;
 	}
+	
+	/* ===== Step 2 Highlight Pulse ===== */
+@keyframes step2Pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(247,142,47,0.55); transform: translateY(0); }
+  60%  { box-shadow: 0 0 0 10px rgba(247,142,47,0); transform: translateY(-1px); }
+  100% { box-shadow: 0 0 0 0 rgba(247,142,47,0); transform: translateY(0); }
+}
+
+.msform-link.pulse {
+  animation: step2Pulse 1.1s ease-out 3; /* nhấp nháy 3 lần nhẹ */
+}
+
 	
 	/* Locked state */
 	.msform-link.locked {
@@ -913,10 +925,11 @@
         <div class="program-title">CVRO Talent Uplift Program 2026</div>
 
         <div class="header-subtitle">
-          Use this page to build and download your Candidate Profile (PDF + Excel)
-          for the CVRO Talent Uplift program. Once ready, please submit your responses
-          through the official Microsoft Forms application.
-        </div>
+          <strong>Welcome!</strong> 
+		  You have been nominated by your Head of Department for the CVRO Talent Uplift Program
+		  Participation is <strong>your choice.</strong> 
+		  If you wish to move forward, please complete the <strong>two short steps</strong>  below.
+		  </div>
 		<!-- STEP 2 LINK (LOCKED INITIALLY) -->
 		<div style="margin-top:10px;">
 		  <a
@@ -1679,6 +1692,16 @@ function showToast(message, type = "success", duration = 2800) {
   toastTimer = setTimeout(() => toast.classList.remove("show"), duration);
 }
 
+function pulseStep2Link() {
+  const link = $("msFormLink");
+  if (!link) return;
+
+  link.classList.remove("pulse"); // reset để lần sau add lại vẫn chạy
+  void link.offsetWidth;          // force reflow
+  link.classList.add("pulse");
+}
+
+
 function unlockMsFormLink() {
   const link = $("msFormLink");
   if (!link) return;
@@ -1686,9 +1709,10 @@ function unlockMsFormLink() {
   link.classList.remove("locked");
   link.classList.add("unlocked");
   link.setAttribute("aria-disabled", "false");
-  link.innerHTML = "➡ Step 2 – Open Microsoft Forms Application";
+  link.innerHTML = "➡ Step 2/2 – Open Microsoft Forms Application";
 
   try { localStorage.setItem(MSFORM_UNLOCK_KEY, "1"); } catch (e) {}
+  pulseStep2Link();
 }
 
 function lockMsFormLink() {
@@ -1912,12 +1936,17 @@ function lockMsFormLink() {
         anyCrossDept = true;
       }
 
-      const crossBlock = $("crossDeptBlock");
-      if (anyCrossDept) {
-        crossBlock.style.display = "block";
-      } else {
-        crossBlock.style.display = "none";
-      }
+const crossBlock = $("crossDeptBlock");
+
+if (anyCrossDept) {
+  crossBlock.style.display = "block";
+  $("crossJustification").required = true;
+} else {
+  crossBlock.style.display = "none";
+  $("crossJustification").required = false;
+  $("crossJustification").value = "";
+}
+
     }
 
     // ===============================
@@ -2639,6 +2668,10 @@ try {
 		    $("currentDept").focus();
 		  }
 		});
+		$("currentRole").addEventListener("change", function () {
+  saveFormToLocalStorage();
+});
+
 
 		
       $("pref1Role").addEventListener("change", function () {
@@ -2723,14 +2756,21 @@ showToast("Step 2 link is locked again. Generate & download to unlock.", "lock",
       });
 
       // Modal controls
-      $("closeModalBtn").addEventListener("click", function () {
-        $("profileModal").classList.remove("show");
-      });
+$("closeModalBtn").addEventListener("click", function () {
+  $("profileModal").classList.remove("show");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
 
-      $("backToFormBtn").addEventListener("click", function () {
-        $("profileModal").classList.remove("show");
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
+$("closeSuccessBtn").addEventListener("click", function () {
+  $("successModal").classList.remove("show");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+$("successOkBtn").addEventListener("click", function () {
+  $("successModal").classList.remove("show");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
 
       $("finalSubmitBtn").addEventListener("click", function () {
         if (!lastPayload) {
@@ -2742,39 +2782,55 @@ showToast("Step 2 link is locked again. Generate & download to unlock.", "lock",
         downloadExcel(finalPayload);
 downloadProfilePdf(finalPayload);
 
+
 // unlock step 2
 unlockMsFormLink();
-showToast("✅ Step 2 link is now unlocked. Please upload your PDF + Excel in the MS Form.", "success");
+showToast("Step 2 link is now unlocked. Please upload your PDF + Excel in the MS Form.", "success");
 
 // show success modal
 $("successModal").classList.add("show");
 
       });
-
-      // Success modal controls
-      $("closeSuccessBtn").addEventListener("click", function () {
-        $("successModal").classList.remove("show");
-      });
-      $("successOkBtn").addEventListener("click", function () {
-        $("successModal").classList.remove("show");
-      });
-    });
 	
 	// Close modal when clicking backdrop
 document.querySelectorAll(".modal-backdrop").forEach((b) => {
   b.addEventListener("click", () => {
+    const wasProfileOpen = $("profileModal").classList.contains("show");
+    const wasSuccessOpen = $("successModal").classList.contains("show");
+
     $("profileModal").classList.remove("show");
     $("successModal").classList.remove("show");
+
+    // nếu đóng modal kiểu "back to form" (click ra ngoài) -> cuộn lên đầu
+    if (wasProfileOpen || wasSuccessOpen) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   });
 });
 
-// Close modal on ESC key
+
+// Close modal on ESC key (and scroll to top)
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
+    const wasProfileOpen = $("profileModal").classList.contains("show");
+    const wasSuccessOpen = $("successModal").classList.contains("show");
+
     $("profileModal").classList.remove("show");
     $("successModal").classList.remove("show");
+
+    // nếu ESC dùng để quay lại form -> scroll lên đầu
+    if (wasProfileOpen || wasSuccessOpen) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }
 });
+// back to form event listener
+$("backToFormBtn").addEventListener("click", function () {
+  $("profileModal").classList.remove("show");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+}); // end DOMContentLoaded
+
 
   </script>
   <!-- MICRO TOAST -->
