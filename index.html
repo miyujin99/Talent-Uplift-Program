@@ -852,7 +852,17 @@
 }
 
 .msform-link.pulse {
-  animation: step2Pulse 1.1s ease-out 3; /* nhấp nháy 3 lần nhẹ */
+  animation: step2Pulse 1.1s ease-out 7; /* pulse 7 lần */
+}
+
+/* luôn giữ viền sáng khi unlocked (kể cả sau khi pulse xong) */
+.msform-link.unlocked {
+  background: linear-gradient(135deg, #fb923c, #f97316);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow:
+    0 6px 18px rgba(251,146,60,0.45),
+    0 0 0 2px rgba(251,146,60,0.25);
 }
 
 	
@@ -1692,14 +1702,20 @@ function showToast(message, type = "success", duration = 2800) {
   toastTimer = setTimeout(() => toast.classList.remove("show"), duration);
 }
 
-function pulseStep2Link() {
+function pulseStep2Link(times = 7, durationMs = 1100) {
   const link = $("msFormLink");
   if (!link) return;
 
-  link.classList.remove("pulse"); // reset để lần sau add lại vẫn chạy
-  void link.offsetWidth;          // force reflow
+  // reset để chạy lại được
+  link.classList.remove("pulse");
+  void link.offsetWidth;
   link.classList.add("pulse");
+
+  // sau khi pulse xong -> remove pulse (nhưng unlocked vẫn giữ glow)
+  const total = times * durationMs;
+  setTimeout(() => link.classList.remove("pulse"), total + 80);
 }
+
 
 
 function unlockMsFormLink() {
@@ -1712,7 +1728,7 @@ function unlockMsFormLink() {
   link.innerHTML = "➡ Step 2/2 – Open Microsoft Forms Application";
 
   try { localStorage.setItem(MSFORM_UNLOCK_KEY, "1"); } catch (e) {}
-  pulseStep2Link();
+  pulseStep2Link(7, 1100);
 }
 
 function lockMsFormLink() {
@@ -2829,6 +2845,14 @@ $("backToFormBtn").addEventListener("click", function () {
   $("profileModal").classList.remove("show");
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
+
+$("msFormLink").addEventListener("click", function () {
+  // chỉ xử lý khi unlocked
+  if (this.classList.contains("unlocked")) {
+    this.classList.remove("pulse"); // ngừng nhấp nháy
+  }
+});
+
 }); // end DOMContentLoaded
 
 
