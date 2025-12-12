@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Talent Uplift – Candidate Profile Builder</title>
+  <title>Candidate Profile Builder</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Favicon -->
@@ -78,12 +78,6 @@
       font-weight: 800;
       color: var(--ashley-orange-dark);
       letter-spacing: 0.02em;
-    }
-
-    .subtitle {
-      font-size: 13px;
-      color: #4b5563;
-      margin-bottom: 8px;
     }
 
     .tag {
@@ -699,6 +693,14 @@
     }
 
     /* Light Ashley Orange Header – compact version (desktop base) */
+	.header-subtitle{
+  font-size: 13px;
+  color: #5c4a3a;
+  max-width: 100%;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
     .header-orange {
       background: linear-gradient(
           90deg,
@@ -730,14 +732,6 @@
       font-weight: 700;
       color: #9a4a0b;
       margin-top: -2px;
-    }
-
-    .subtitle {
-      font-size: 13px;
-      color: #5c4a3a;
-      max-width: 100%;
-      line-height: 1.4;
-      margin-top: 2px;
     }
 
     .info-badge {
@@ -836,6 +830,75 @@
         padding: 14px 14px 16px;
       }
     }
+	/* ===== Step 2 MS Form Link ===== */
+	.msform-link {
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 6px;
+	  padding: 8px 14px;
+	  border-radius: 999px;
+	  font-size: 12.5px;
+	  font-weight: 700;
+	  text-decoration: none;
+	  border: 1px solid #fed7aa;
+	  transition: all 0.15s ease;
+	}
+	
+	/* Locked state */
+	.msform-link.locked {
+	  background: #fef3c7;
+	  color: #9a3412;
+	  opacity: 0.6;
+	  pointer-events: none;
+	  cursor: not-allowed;
+	}
+	
+	/* Unlocked state */
+	.msform-link.unlocked {
+	  background: linear-gradient(135deg, #f78e2f, #d86f12);
+	  color: #ffffff;
+	  border-color: transparent;
+	  box-shadow: 0 4px 12px rgba(248,153,60,0.35);
+	}
+	
+	.msform-link.unlocked:hover {
+	  transform: translateY(-1px);
+	  box-shadow: 0 6px 16px rgba(248,153,60,0.45);
+	}
+	/* ===== Micro Toast ===== */
+	.toast {
+	  position: fixed;
+	  left: 50%;
+	  bottom: 18px;
+	  transform: translateX(-50%);
+	  z-index: 1200;
+	  display: none;
+	}
+	
+	.toast.show {
+	  display: block;
+	  animation: toastIn 0.18s ease-out;
+	}
+	
+	@keyframes toastIn {
+	  from { opacity: 0; transform: translateX(-50%) translateY(6px); }
+	  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+	}
+	
+	.toast-inner {
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 10px;
+	  background: #ffffff;
+	  border: 1px solid #bbf7d0;
+	  box-shadow: 0 10px 28px rgba(15,23,42,0.14);
+	  border-radius: 999px;
+	  padding: 10px 14px;
+	  color: #166534;
+	  font-size: 12.5px;
+	  font-weight: 700;
+	}
+
   </style>
 </head>
 <body>
@@ -849,11 +912,24 @@
 
         <div class="program-title">CVRO Talent Uplift Program 2026</div>
 
-        <div class="subtitle">
+        <div class="header-subtitle">
           Use this page to build and download your Candidate Profile (PDF + Excel)
           for the CVRO Talent Uplift program. Once ready, please submit your responses
           through the official Microsoft Forms application.
         </div>
+		<!-- STEP 2 LINK (LOCKED INITIALLY) -->
+		<div style="margin-top:10px;">
+		  <a
+		    id="msFormLink"
+		    href="https://forms.office.com/r/E7J5syLsjD"
+		    target="_blank"
+		    rel="noopener"
+		    class="msform-link locked"
+		    aria-disabled="true"
+		  >
+		    🔒 Step 2 – Open Microsoft Forms Application
+		  </a>
+		</div>
 
         <div class="info-badge">
           Please complete this page in English. Fields marked (*) are required.
@@ -1566,19 +1642,7 @@
   </div>
 
   <script>
-    // ===============================
-    // CONFIG · CSV & STORAGE
-    // ===============================
-
-    const STORAGE_KEY = "talent_uplift_candidate_profile_v1";
-    let departments = [];
-    let targetRoles = [];
-    const rolesMap = {};
-    let lastPayload = null;
-	let positionsByDept = {}; // { deptName: [position1, position2, ...] }
-
-
-    function $(id) {
+      function $(id) {
       return document.getElementById(id);
     }
 
@@ -1591,6 +1655,68 @@
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
     }
+let toastTimer = null;
+
+function showToast(message, type = "success", duration = 2800) {
+  const toast = $("microToast");
+  const text = $("toastText");
+  const icon = $("toastIcon");
+  if (!toast || !text || !icon) return;
+
+  const iconMap = {
+    success: "✅",
+    lock: "🔒",
+    info: "ℹ️",
+    warn: "⚠️",
+    error: "❌"
+  };
+
+  icon.textContent = iconMap[type] || "ℹ️";
+  text.textContent = message;
+
+  toast.classList.add("show");
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), duration);
+}
+
+function unlockMsFormLink() {
+  const link = $("msFormLink");
+  if (!link) return;
+
+  link.classList.remove("locked");
+  link.classList.add("unlocked");
+  link.setAttribute("aria-disabled", "false");
+  link.innerHTML = "➡ Step 2 – Open Microsoft Forms Application";
+
+  try { localStorage.setItem(MSFORM_UNLOCK_KEY, "1"); } catch (e) {}
+}
+
+function lockMsFormLink() {
+  const link = $("msFormLink");
+  if (!link) return;
+
+  link.classList.remove("unlocked");
+  link.classList.add("locked");
+  link.setAttribute("aria-disabled", "true");
+  link.innerHTML = "🔒 Step 2 – Open Microsoft Forms Application";
+
+  try { localStorage.removeItem(MSFORM_UNLOCK_KEY); } catch (e) {}
+}
+
+    // ===============================
+    // CONFIG · CSV & STORAGE
+    // ===============================
+
+    const STORAGE_KEY = "talent_uplift_candidate_profile_v1";
+	const MSFORM_UNLOCK_KEY = "talent_uplift_msform_unlocked_v1";
+    let departments = [];
+    let targetRoles = [];
+    const rolesMap = {};
+    let lastPayload = null;
+	let positionsByDept = {}; // { deptName: [position1, position2, ...] }
+
+
+
 
     // ===============================
     // LOAD CSV roles_master.csv
@@ -1774,6 +1900,8 @@
 
       // Preference 2 reason required only if Pref2 selected
       $("pref2Reason").required = !!pref2Role;
+	  if (!pref2Role) $("pref2Reason").value = "";
+
 
       // Cross-dept block logic
       let anyCrossDept = false;
@@ -1898,6 +2026,7 @@ function findRoleIdByTitle(title) {
       $("consentAccuracy").checked = true;
 
       updateRoleDependentUI();
+	  lockMsFormLink();
       saveFormToLocalStorage();
 
       alert(
@@ -2228,12 +2357,13 @@ function findRoleIdByTitle(title) {
       }
 
       // Cross-dept badge for 2nd preference
-      const currentDept = payload.candidate.currentDept;
-      if (p2 && currentDept && p2.department !== currentDept) {
-        $("crossNotice").style.display = "inline-block";
-      } else {
-        $("crossNotice").style.display = "none";
-      }
+const currentDept = payload.candidate.currentDept;
+const anyCross =
+  (p1 && currentDept && p1.department !== currentDept) ||
+  (p2 && currentDept && p2.department !== currentDept);
+
+$("crossNotice").style.display = anyCross ? "inline-block" : "none";
+
 
       // Reasons
       $("rs1").innerText = (p1 && p1.reason) || "—";
@@ -2474,6 +2604,13 @@ function findRoleIdByTitle(title) {
 	  refreshCurrentRoleOptions();
 	  restoreFormFromLocalStorage();
 	  updateRoleDependentUI();
+	  
+try {
+  if (localStorage.getItem(MSFORM_UNLOCK_KEY) === "1") unlockMsFormLink();
+  else lockMsFormLink();
+} catch (e) {
+  lockMsFormLink();
+}
 
 
       // Auto-format Employee ID (digits only, pad to 4 on blur)
@@ -2577,7 +2714,12 @@ function findRoleIdByTitle(title) {
         $("successMessage").style.display = "none";
         lastPayload = null;
         clearLocalStorageData();
+		$("applicationForm").reset();
+refreshCurrentRoleOptions();
+updateRoleDependentUI();
         setTimeout(updateRoleDependentUI, 10);
+		lockMsFormLink();
+showToast("Step 2 link is locked again. Generate & download to unlock.", "lock", 2400);
       });
 
       // Modal controls
@@ -2598,10 +2740,15 @@ function findRoleIdByTitle(title) {
         const finalPayload = lastPayload; // consistent with preview
         showJsonPreview(finalPayload);
         downloadExcel(finalPayload);
-        downloadProfilePdf(finalPayload);
+downloadProfilePdf(finalPayload);
 
-        // show success modal
-        $("successModal").classList.add("show");
+// unlock step 2
+unlockMsFormLink();
+showToast("✅ Step 2 link is now unlocked. Please upload your PDF + Excel in the MS Form.", "success");
+
+// show success modal
+$("successModal").classList.add("show");
+
       });
 
       // Success modal controls
@@ -2612,6 +2759,31 @@ function findRoleIdByTitle(title) {
         $("successModal").classList.remove("show");
       });
     });
+	
+	// Close modal when clicking backdrop
+document.querySelectorAll(".modal-backdrop").forEach((b) => {
+  b.addEventListener("click", () => {
+    $("profileModal").classList.remove("show");
+    $("successModal").classList.remove("show");
+  });
+});
+
+// Close modal on ESC key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    $("profileModal").classList.remove("show");
+    $("successModal").classList.remove("show");
+  }
+});
+
   </script>
+  <!-- MICRO TOAST -->
+<div id="microToast" class="toast" role="status" aria-live="polite">
+  <div class="toast-inner">
+    <span id="toastIcon" class="toast-icon">✅</span>
+    <span id="toastText">Step 2 link is now unlocked.</span>
+  </div>
+</div>
+
 </body>
 </html>
