@@ -875,14 +875,7 @@
 	  cursor: not-allowed;
 	}
 	
-	/* Unlocked state */
-	.msform-link.unlocked {
-	  background: linear-gradient(135deg, #f78e2f, #d86f12);
-	  color: #ffffff;
-	  border-color: transparent;
-	  box-shadow: 0 4px 12px rgba(248,153,60,0.35);
-	}
-	
+	/* Unlocked state */	
 	.msform-link.unlocked:hover {
 	  transform: translateY(-1px);
 	  box-shadow: 0 6px 16px rgba(248,153,60,0.45);
@@ -2071,7 +2064,6 @@ function findRoleIdByTitle(title) {
       $("consentAccuracy").checked = true;
 
       updateRoleDependentUI();
-	  lockMsFormLink();
       saveFormToLocalStorage();
 
       alert(
