@@ -1681,7 +1681,7 @@ function showToast(message, type = "success", duration = 2800) {
   toastTimer = setTimeout(() => toast.classList.remove("show"), duration);
 }
 
-function pulseStep2Link(times = 7, durationMs = 1100) {
+function pulseStep2Link(times = 100, durationMs = 1100) {
   const link = $("msFormLink");
   if (!link) return;
 
@@ -1708,7 +1708,7 @@ function unlockMsFormLink() {
   link.innerHTML = "➡ Step 2/2 – Open Microsoft Forms Application";
 
   try { localStorage.setItem(MSFORM_UNLOCK_KEY, "1"); } catch (e) {}
-  pulseStep2Link(10, 1100);
+  pulseStep2Link(100, 1100);
 }
 
 function lockMsFormLink() {
@@ -2650,8 +2650,8 @@ if (secretLogo) {
       clickTimer = null;
     }, RESET_MS);
 
-    // đủ 3 click trong thời gian yêu cầu -> load sample
-    if (clickCount === 3) {
+    // đủ 5 click trong thời gian yêu cầu -> load sample
+    if (clickCount === 5) {
       clickCount = 0;
       if (clickTimer) clearTimeout(clickTimer);
       clickTimer = null;
